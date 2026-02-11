@@ -54,14 +54,7 @@ class QRTracker(BaseControl):
         if direction is None:
             direction = self.last_direction
         else:
-            if direction != self.last_direction:
-                self.last_directions = [direction]
-            else:
-                self.last_directions.append(direction)
-            if len(self.last_directions) >= 3:
-                self.last_direction = direction
-            else:
-                direction = self.last_direction
+            self.last_direction = direction
 
         return direction, frame
     
@@ -89,7 +82,7 @@ class QRTracker(BaseControl):
                 "description": "Number of consecutive frames that the QR must be in a place to mark it as effective.", 
                 "min": 1, 
                 "max": 10000, 
-                "default": 3
+                "default": 1
                 },
         }
 

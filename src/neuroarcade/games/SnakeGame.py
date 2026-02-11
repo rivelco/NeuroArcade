@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import cv2
+import time
 
 from neuroarcade.games.base import BaseGame
 from neuroarcade.core.direction import Direction
@@ -13,12 +14,20 @@ class SnakeGame(BaseGame):
         self.grid_h = grid_h
         self.reset()
 
-    # ---------------- BaseGame API ----------------    
+    # ---------------- BaseGame API ---------------- 
+    def start(self):
+        super().start()
+        self.start_time = time.time()
+        self.end_time = None
+
     def reset(self):
         self.snake = [(10, 10), (9, 10), (8, 10)]
         self.direction = Direction.RIGHT
         self.food = self._random_food()
         self.score = 0
+
+        self.start_time = None
+        self.end_time = None
 
     def update(self, new_direction: Direction | None):
         if not self.is_running():
@@ -54,8 +63,10 @@ class SnakeGame(BaseGame):
             y < 0 or y >= self.grid_h or
             new_head in self.snake
         ):
-            self.stop() # Game over
+            self.end_time = time.time()
+            self.stop()  # Game over
             return
+
 
         self.snake.insert(0, new_head)
 
@@ -70,6 +81,24 @@ class SnakeGame(BaseGame):
             (self.grid_h * self.cell, self.grid_w * self.cell, 3),
             dtype=np.uint8
         )
+
+        # grid
+        for i in range(self.grid_w + 1):
+            cv2.line(
+                img,
+                (i * self.cell, 0),
+                (i * self.cell, self.grid_h * self.cell),
+                (40, 40, 40),
+                1
+            )
+        for j in range(self.grid_h + 1):
+            cv2.line(
+                img,
+                (0, j * self.cell),
+                (self.grid_w * self.cell, j * self.cell),
+                (40, 40, 40),
+                1
+            )
 
         # Snake
         for x, y in self.snake:
@@ -91,6 +120,25 @@ class SnakeGame(BaseGame):
             -1
         )
 
+        # HUD stats
+        if self.start_time:
+            elapsed = (self.end_time or time.time()) - self.start_time
+            hud = f"Score: {self.score}   Time: {elapsed:0.2f}s"
+            cv2.putText(
+                img, hud, (10, 20),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6,
+                (255, 255, 255), 2, cv2.LINE_AA
+            )
+
+        # Game over message
+        if not self.is_running() and self.end_time is not None:
+            cv2.putText(
+                img, "GAME OVER",
+                (self.cell * 3, self.cell * 3),
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2,
+                (0, 0, 255), 3, cv2.LINE_AA
+            )
+
         return img
 
     def get_config_schema(self) -> dict:
@@ -102,23 +150,23 @@ class SnakeGame(BaseGame):
                 "name": "Grid width",
                 "description": "Grid width", 
                 "min": 10, 
-                "max": 60, 
+                "max": 100, 
                 "default": 32
                 },
             "grid_h": {
                 "name": "Grid height",
                 "description": "Grid height", 
                 "min": 10, 
-                "max": 60, 
+                "max": 100, 
                 "default": 24
                 },
-            "cell": {
-                "name": "Cell", 
-                "description": "Cell size in pixels", 
-                "min": 10, 
-                "max": 40, 
-                "default": 20
-                },
+            #"cell": {
+            #    "name": "Cell", 
+            #    "description": "Cell size in pixels", 
+            #    "min": 10, 
+            #    "max": 40, 
+            #    "default": 20
+            #    },
         }
 
     # ---------------- Internal helpers ----------------

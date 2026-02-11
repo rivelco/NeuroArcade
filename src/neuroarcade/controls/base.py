@@ -7,3 +7,10 @@ class BaseControl(ABC):
     def update(self) -> tuple[Direction | None, np.ndarray | None]:
         """Return (direction, view_frame)"""
         pass
+    
+    @abstractmethod
+    def get_config_schema(self) -> dict:
+        """
+        Parameters that the UI can expose dynamically.
+        """
+        pass

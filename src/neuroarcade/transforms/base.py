@@ -12,3 +12,10 @@ class BaseTransform(ABC):
     def apply(self, direction: Direction) -> Direction:
         """Return the remapped direction"""
         raise NotImplementedError
+    
+    @abstractmethod
+    def get_config_schema(self) -> dict:
+        """
+        Parameters that the UI can expose dynamically.
+        """
+        pass

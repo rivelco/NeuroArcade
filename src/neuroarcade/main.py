@@ -148,7 +148,20 @@ class MainWindow(QMainWindow):
         # Show everything
         self.game_feed_lbl.setPixmap(cv_to_qt(game_frame))
         self.control_feed_lbl.setPixmap(cv_to_qt(cam_frame))
-
+        
+    # ---- Helpers to detect key events for Keyboard control ----
+    def event(self, event):
+        if event.type() == QEvent.Type.ShortcutOverride:
+            self.key_here(event)
+            return False
+        return QWidget.event(self, event)
+    
+    def key_here(self, event):#keyPressEvent(self, event):
+        # Handle reset and start keys
+        if event.key() == Qt.Key.Key_Escape:
+            self.reset_game()
+        if event.key() == Qt.Key.Key_Space:
+            self.start_game()
 
 # Entry point
 def main():

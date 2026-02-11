@@ -3,11 +3,14 @@ import sys
 import time
 import argparse
 import importlib.metadata
+from importlib.resources import files
 
 import cv2
 
 # Qt
+from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import (
+    QMainWindow,
     QApplication, QWidget, QLabel, QPushButton,
     QHBoxLayout, QVBoxLayout, QSlider, QSpinBox
 )
@@ -32,12 +35,12 @@ def cv_to_qt(img):
     return QPixmap.fromImage(qimg)
 
 # Main Window
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        # ---- Engine components (pluggable) ----
-        self.game = SnakeGame()
+        ui_path = str(files("neuroarcade.ui").joinpath("MainWindow.ui"))
+        loadUi(ui_path, self)
+        self.setWindowTitle('NeuroArcade')
         self.control = QRTracker()
         self.transform = IdentityTransform()
 
@@ -135,6 +138,5 @@ def main():
 
     app = QApplication(sys.argv)
     win = MainWindow()
-    win.setWindowTitle("NeuroArcade")
     win.show()
     sys.exit(app.exec())

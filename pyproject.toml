@@ -21,7 +21,8 @@ dependencies = [
     "numpy",
     "h5py",
     "pyyaml",
-    "pydantic"
+    "pydantic",
+    "pyqtdarktheme"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

@@ -4,7 +4,7 @@ import time
 import argparse
 import importlib.metadata
 from importlib.resources import files
-
+import qdarktheme
 import cv2
 
 # Qt
@@ -193,6 +193,7 @@ def main():
         return
 
     app = QApplication(sys.argv)
+    qdarktheme.setup_theme()
     win = MainWindow()
     win.show()
     sys.exit(app.exec())

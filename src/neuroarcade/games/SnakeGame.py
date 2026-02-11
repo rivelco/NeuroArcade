@@ -98,9 +98,27 @@ class SnakeGame(BaseGame):
         Parameters that the UI can expose dynamically.
         """
         return {
-            "grid_w": {"type": "int", "min": 10, "max": 60, "default": 32},
-            "grid_h": {"type": "int", "min": 10, "max": 60, "default": 24},
-            "cell": {"type": "int", "min": 10, "max": 40, "default": 20},
+            "grid_w": {
+                "name": "Grid width",
+                "description": "Grid width", 
+                "min": 10, 
+                "max": 60, 
+                "default": 32
+                },
+            "grid_h": {
+                "name": "Grid height",
+                "description": "Grid height", 
+                "min": 10, 
+                "max": 60, 
+                "default": 24
+                },
+            "cell": {
+                "name": "Cell", 
+                "description": "Cell size in pixels", 
+                "min": 10, 
+                "max": 40, 
+                "default": 20
+                },
         }
 
     # ---------------- Internal helpers ----------------

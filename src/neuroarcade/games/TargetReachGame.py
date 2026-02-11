@@ -128,7 +128,7 @@ class TargetReachGame(BaseGame):
                 (255, 255, 255), 2, cv2.LINE_AA
             )
             
-        # --- Game over message
+        # You win message
         if not self.is_running() and self.end_time is not None:
             cv2.putText(
                 img, "YOU WIN",

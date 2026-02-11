@@ -142,7 +142,7 @@ class MainWindow(QMainWindow):
 
     # --------------------------------------------------
 
-    def loop(self):
+    def loop(self):        
         # Get control input
         direction, cam_frame = self.control.update()
         
@@ -177,7 +177,7 @@ class MainWindow(QMainWindow):
             return False
         return QWidget.event(self, event)
     
-    def key_here(self, event):#keyPressEvent(self, event):
+    def key_here(self, event):
         # Handle reset and start keys
         if event.key() == Qt.Key.Key_Escape:
             self.reset_game()

@@ -10,9 +10,7 @@ import cv2
 # Qt
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import (
-    QMainWindow,
-    QApplication, QWidget, QLabel, QPushButton,
-    QHBoxLayout, QVBoxLayout, QSlider, QSpinBox
+    QMainWindow, QApplication, QWidget
 )
 from PyQt6.QtCore import QTimer, Qt, QEvent
 from PyQt6.QtGui import QImage, QPixmap
@@ -101,7 +99,6 @@ class MainWindow(QMainWindow):
 
     def reset_game(self):
         self.change_selected_game(self.current_game)
-        #self.game = self.games[self.current_game]
     
     def change_selected_game(self, game_name):
         configs = self.games[game_name].get_config_schema(self.games[game_name])
@@ -177,10 +174,7 @@ class MainWindow(QMainWindow):
     def keyReleaseEvent(self, event):
         if not isinstance(self.control, KeyboardControl):
             return
-
         self.control.set_direction(None)
-
-
 
 # Entry point
 def main():

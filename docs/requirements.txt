@@ -1,0 +1,11 @@
+furo==2024.8.6
+sphinx-copybutton==0.5.2
+sphinxcontrib-napoleon
+sphinx-autodoc-typehints
+
+opencv-python
+numpy
+h5py
+pyqt6>=6.5
+pyyaml
+pydantic

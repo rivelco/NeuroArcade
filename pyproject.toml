@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuroarcade"
+version = "1.0.0"
+description = "Arcade games to promote neuro-plasticity"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+license-files = [
+    "LICENSE",
+]
+authors = [
+    { name = "Ricardo Velazquez Contreras" }
+]
+dependencies = [
+    "opencv-python",
+    "PyQt6>=6.0",
+    "numpy",
+    "h5py",
+    "pyyaml",
+    "pydantic"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent"
+]
+
+[project.optional-dependencies]
+dev = ["pyqt6-tools", 
+    "pytest",
+    "build"
+]
+docs = [
+    "sphinx>=7.0",
+    "furo",
+    "sphinx-copybutton",
+    "sphinxcontrib-napoleon",
+    "sphinx-autodoc-typehints"
+]
+all = [
+    "pyqt6-tools", 
+    "pytest",
+    "build",
+    "sphinx>=7.0",
+    "furo",
+    "sphinx-copybutton",
+    "sphinxcontrib-napoleon",
+    "sphinx-autodoc-typehints"
+]
+
+[project.scripts]
+neuroarcade = "neuroarcade.main:main"
+
+[project.urls]
+Homepage = "https://github.com/rivelco/neuroarcade"
+Documentation = "https://rivelco.github.io/neuroarcade/"
+Issues = "https://github.com/rivelco/neuroarcade/issues"
+
+[tool.setuptools]
+include-package-data = true

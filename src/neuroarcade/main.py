@@ -20,18 +20,30 @@ from neuroarcade.core.direction import Direction
 from neuroarcade.controls.KeyboardControl import KeyboardControl
 from neuroarcade.utils.loader import discover_classes
 from neuroarcade.ui.configurator import update_box_options, read_config
+from neuroarcade.visualizers.controls import InputVisualization
 
 
-# Utility OpenCV image to Qt
-def cv_to_qt(img):
+# Utility OpenCV image to Qt scaled image
+def set_cv_image(label, img):
     if img is None:
-        return QPixmap()
+        label.clear()
+        return
 
     rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     h, w, ch = rgb.shape
-    qimg = QImage(rgb.data, w, h, ch * w, QImage.Format.Format_RGB888)
-    return QPixmap.fromImage(qimg)
 
+    qimg = QImage(rgb.data, w, h, ch * w, QImage.Format.Format_RGB888)
+    pix = QPixmap.fromImage(qimg)
+
+    # Scale to label size, keep aspect ratio
+    scaled = pix.scaled(
+        label.size(),
+        Qt.AspectRatioMode.KeepAspectRatio,
+        Qt.TransformationMode.SmoothTransformation
+    )
+
+    label.setPixmap(scaled)
+    
 # Main Window
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -69,6 +81,10 @@ class MainWindow(QMainWindow):
         self.change_selected_game(initial_game)
         self.change_selected_control(initial_control)
         self.change_selected_transform(initial_transform)
+        
+        # Visualization components
+        self.user_input_vis = InputVisualization(size=120, offset=35)
+        self.trans_output_vis = InputVisualization(size=120, offset=35)
         
         # ---- UI widgets ----
         self.game_speed_slider.setRange(50, 300)
@@ -129,9 +145,15 @@ class MainWindow(QMainWindow):
     def loop(self):
         # Get control input
         direction, cam_frame = self.control.update()
-
+        
+        # Update the user input visualization
+        user_input_frame = self.user_input_vis.update(direction)
+        
         # Transform control paradigm
         direction = self.transform.apply(direction)
+        
+        # Update the transform output visualization
+        trans_output_frame = self.trans_output_vis.update(direction)
 
         # Update game on its own clock
         speed = self.game_speed_slider.value() / 1000.0
@@ -143,8 +165,10 @@ class MainWindow(QMainWindow):
         game_frame = self.game.render()
 
         # Show everything
-        self.game_feed_lbl.setPixmap(cv_to_qt(game_frame))
-        self.control_feed_lbl.setPixmap(cv_to_qt(cam_frame))
+        set_cv_image(self.game_feed_lbl, game_frame)
+        set_cv_image(self.control_feed_lbl, cam_frame)
+        set_cv_image(self.user_input_visualization_lbl, user_input_frame)
+        set_cv_image(self.transform_output_visualization_lbl, trans_output_frame)
         
     # ---- Helpers to detect key events for Keyboard control ----
     def event(self, event):

@@ -7,21 +7,21 @@ from neuroarcade.core.direction import Direction
 
 class SnakeGame(BaseGame):
     def __init__(self, grid_w=32, grid_h=24, cell=20):
+        super().__init__()
         self.cell = cell
         self.grid_w = grid_w
         self.grid_h = grid_h
         self.reset()
 
-    # ---------------- BaseGame API ----------------
+    # ---------------- BaseGame API ----------------    
     def reset(self):
         self.snake = [(10, 10), (9, 10), (8, 10)]
         self.direction = Direction.RIGHT
         self.food = self._random_food()
         self.score = 0
-        self.game_over = False
 
     def update(self, new_direction: Direction | None):
-        if self.game_over:
+        if not self.is_running():
             return
 
         # Prevent 180 reversal
@@ -54,7 +54,7 @@ class SnakeGame(BaseGame):
             y < 0 or y >= self.grid_h or
             new_head in self.snake
         ):
-            self.game_over = True
+            self.stop() # Game over
             return
 
         self.snake.insert(0, new_head)

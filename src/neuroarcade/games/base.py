@@ -3,6 +3,18 @@ import numpy as np
 from neuroarcade.core.direction import Direction
 
 class BaseGame(ABC):
+    def __init__(self):
+        self._running = False
+
+    def start(self):
+        self._running = True
+
+    def stop(self):
+        self._running = False
+
+    def is_running(self) -> bool:
+        return self._running
+    
     @abstractmethod
     def reset(self):
         pass

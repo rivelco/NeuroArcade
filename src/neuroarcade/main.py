@@ -162,6 +162,25 @@ class MainWindow(QMainWindow):
             self.reset_game()
         if event.key() == Qt.Key.Key_Space:
             self.start_game()
+            
+        # Special case for the KeyboardControl
+        if isinstance(self.control, KeyboardControl):
+            if event.key() == Qt.Key.Key_Up:
+                self.control.set_direction(Direction.UP)
+            elif event.key() == Qt.Key.Key_Down:
+                self.control.set_direction(Direction.DOWN)
+            elif event.key() == Qt.Key.Key_Left:
+                self.control.set_direction(Direction.LEFT)
+            elif event.key() == Qt.Key.Key_Right:
+                self.control.set_direction(Direction.RIGHT)
+            
+    def keyReleaseEvent(self, event):
+        if not isinstance(self.control, KeyboardControl):
+            return
+
+        self.control.set_direction(None)
+
+
 
 # Entry point
 def main():

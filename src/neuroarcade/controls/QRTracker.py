@@ -4,13 +4,15 @@ from neuroarcade.core.direction import Direction
 
 
 class QRTracker(BaseControl):
-    def __init__(self, camera_index=0, downscale=0.5):
+    def __init__(self, camera_index=0, downscale=0.5, frames_threshold=3):
         self.cap = cv2.VideoCapture(camera_index)
         self.detector = cv2.QRCodeDetector()
         self.downscale = downscale
+        self.frames_threshold = frames_threshold
 
         # Optional smoothing (prevents jittery direction flips)
         self.last_direction = None
+        self.last_directions = []
 
     # --------------- BaseControl API ----------------
 
@@ -52,9 +54,44 @@ class QRTracker(BaseControl):
         if direction is None:
             direction = self.last_direction
         else:
-            self.last_direction = direction
+            if direction != self.last_direction:
+                self.last_directions = [direction]
+            else:
+                self.last_directions.append(direction)
+            if len(self.last_directions) >= 3:
+                self.last_direction = direction
+            else:
+                direction = self.last_direction
 
         return direction, frame
+    
+    def get_config_schema(self) -> dict:
+        """
+        Parameters that the UI can expose dynamically.
+        """
+        return {
+            "camera_index": {
+                "name": "Camera index", 
+                "description": "Index of the camera to use", 
+                "min": 0, 
+                "max": 60, 
+                "default": 0
+                },
+            "downscale": {
+                "name": "Downscale factor", 
+                "description": "Downscale factor for the camera image. Smaller values increases speed but reduce recognition", 
+                "min": 0.00001, 
+                "max": 1, 
+                "default": 0.5
+                },
+            "frames_threshold": {
+                "name": "Frames threshold", 
+                "description": "Number of consecutive frames that the QR must be in a place to mark it as effective.", 
+                "min": 1, 
+                "max": 10000, 
+                "default": 3
+                },
+        }
 
     # --------------- Cleanup ----------------
 

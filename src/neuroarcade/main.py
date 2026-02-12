@@ -118,6 +118,12 @@ class MainWindow(QMainWindow):
 
     def reset_game(self):
         self.change_selected_game(self.current_game)
+        
+    def reset_control(self):
+        self.change_selected_control(self.current_control)
+    
+    def reset_transform(self):
+        self.change_selected_control(self.current_control)
     
     def change_selected_game(self, game_name):
         configs = self.games[game_name].get_config_schema(self.games[game_name])
@@ -130,7 +136,7 @@ class MainWindow(QMainWindow):
     def change_selected_control(self, control_name):
         configs = self.controls[control_name].get_config_schema(self.controls[control_name])
         if self.current_control != control_name:
-            update_box_options(configs, self.control_parameters_box)
+            update_box_options(configs, self.control_parameters_box, set_function=self.reset_control)
             self.current_control = control_name
         params = read_config(self.control_parameters_box)
         self.control = self.controls[control_name](**params)
@@ -138,7 +144,7 @@ class MainWindow(QMainWindow):
     def change_selected_transform(self, transform_name):
         configs = self.transforms[transform_name].get_config_schema(self.transforms[transform_name])
         if self.current_control != transform_name:
-            update_box_options(configs, self.transform_parameters_box)
+            update_box_options(configs, self.transform_parameters_box, set_function=self.reset_transform)
             self.current_transform = transform_name
         params = read_config(self.transform_parameters_box)
         self.transform = self.transforms[transform_name](**params)

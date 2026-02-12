@@ -27,6 +27,7 @@ class MazeRunner(BaseGame):
         self.goal = self._random_empty()
 
         self.start_time = None
+        self.end_time = None
         self.steps = 0
         self.path = [self.player]
 
@@ -36,6 +37,7 @@ class MazeRunner(BaseGame):
 
         if self.start_time is None:
             self.start_time = time.time()
+            self.end_time = None
 
         if direction is None:
             return
@@ -57,6 +59,7 @@ class MazeRunner(BaseGame):
             self.path.append(self.player)
 
         if self.player == self.goal:
+            self.end_time = time.time()
             self.stop()
 
     def render(self) -> np.ndarray:
@@ -97,7 +100,18 @@ class MazeRunner(BaseGame):
             -1
         )
 
-        self._draw_stats(img)
+        # HUD stats
+        if self.start_time:
+            self._draw_stats(img)
+        
+        # Game over message
+        if not self.is_running() and self.end_time is not None:
+            cv2.putText(
+                img, "YOU WIN",
+                (self.cell * 3, self.cell * 3),
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2,
+                (0, 255, 0), 3, cv2.LINE_AA
+            )
 
         return img
 
@@ -106,14 +120,14 @@ class MazeRunner(BaseGame):
             "grid_w": {
                 "name": "Grid width",
                 "min": 10,
-                "max": 50,
+                "max": 100,
                 "default": 24,
                 "description": "Width of the maze",
             },
             "grid_h": {
                 "name": "Grid height",
                 "min": 10,
-                "max": 40,
+                "max": 100,
                 "default": 18,
                 "description": "Height of the maze",
             },
@@ -127,15 +141,13 @@ class MazeRunner(BaseGame):
             "wall_density": {
                 "name": "Wall density",
                 "min": 0.05,
-                "max": 0.35,
-                "default": 0.18,
+                "max": 0.95,
+                "default": 0.30,
                 "description": "How cluttered the maze is",
             },
         }
 
-    # -------------------------------------------------
     # Maze logic
-    # -------------------------------------------------
     def _generate_maze(self):
         maze = np.zeros((self.grid_h, self.grid_w), dtype=np.uint8)
 
@@ -158,17 +170,15 @@ class MazeRunner(BaseGame):
             return False
         return self.maze[y, x] == 0
 
-    # -------------------------------------------------
-    # Stats overlay (like TargetReach)
-    # -------------------------------------------------
+    # Stats overlay
     def _draw_stats(self, img):
         elapsed = 0
         if self.start_time:
-            elapsed = time.time() - self.start_time
+            elapsed = (self.end_time or time.time()) - self.start_time
 
         text = f"Time: {elapsed:5.2f}s   Steps: {self.steps}"
 
-        cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
+        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
         cv2.putText(
             img,
             text,

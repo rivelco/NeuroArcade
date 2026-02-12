@@ -22,7 +22,8 @@ dependencies = [
     "h5py",
     "pyyaml",
     "pydantic",
-    "pyqtdarktheme"
+    "pyqtdarktheme",
+    "mediapipe"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

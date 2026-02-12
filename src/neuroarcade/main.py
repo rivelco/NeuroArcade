@@ -87,9 +87,10 @@ class MainWindow(QMainWindow):
         self.user_input_vis = InputVisualization(size=120, offset=35)
         self.trans_output_vis = InputVisualization(size=120, offset=35)
         
-        # ---- UI widgets ----
-        self.game_speed_slider.setRange(50, 300)
+        # ---- Speed controllers ----
+        self.game_speed_slider.setRange(30, 300)
         self.game_speed_slider.setValue(120)
+        self.game_speed_slider.setToolTip("Lower values decreases game speed.")
 
         self.global_timer.setRange(10, 600)
         self.global_timer.setValue(30)

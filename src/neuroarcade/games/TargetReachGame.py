@@ -134,7 +134,7 @@ class TargetReachGame(BaseGame):
                 img, "YOU WIN",
                 (self.cell * 3, self.cell * 3),
                 cv2.FONT_HERSHEY_SIMPLEX, 1.2,
-                (0, 0, 255), 3, cv2.LINE_AA
+                (0, 255, 0), 3, cv2.LINE_AA
             )
 
         return img
@@ -157,14 +157,14 @@ class TargetReachGame(BaseGame):
             "grid_w": {
                 "name": "Grid width",
                 "min": 5,
-                "max": 50,
+                "max": 100,
                 "default": 20,
                 "description": "Number of cells horizontally"
             },
             "grid_h": {
                 "name": "Grid height",
                 "min": 5,
-                "max": 50,
+                "max": 100,
                 "default": 15,
                 "description": "Number of cells vertically"
             },

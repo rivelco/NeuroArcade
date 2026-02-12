@@ -11,8 +11,8 @@ from neuroarcade.controls.base import BaseControl
 from importlib.resources import files
 
 class FaceTracker(BaseControl):
-    def __init__(self):
-        self.cap = cv2.VideoCapture(0)
+    def __init__(self, camera=0):
+        self.cap = cv2.VideoCapture(camera)
         model_path = str(files("neuroarcade.assets").joinpath("face_landmarker.task"))
         base_options = python.BaseOptions(
             model_asset_path=model_path
@@ -68,4 +68,12 @@ class FaceTracker(BaseControl):
 
     # -------------------------------------------------
     def get_config_schema(self):
-        return {}
+        return {
+            "camera": {
+                "name": "Index of camera device",
+                "description": "The index of camera device",
+                "default": 0,
+                "min": 0,
+                "max": 50
+            },
+        }

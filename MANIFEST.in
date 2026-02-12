@@ -1,2 +1,3 @@
 recursive-include src/neuroarcade/config *.yaml
 recursive-include src/neuroarcade/ui *.ui
+recursive-include src/neuroarcade/assets *.task

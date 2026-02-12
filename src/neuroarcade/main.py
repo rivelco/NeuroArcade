@@ -75,7 +75,8 @@ class MainWindow(QMainWindow):
         self.current_transform = ""
         
         initial_game = list(self.games.keys())[0]
-        initial_control = list(self.controls.keys())[0]
+        initial_control = "KeyboardControl" #list(self.controls.keys())[0]
+        self.control_selector_combo.setCurrentText(initial_control)
         initial_transform = list(self.transforms.keys())[0]
         
         self.change_selected_game(initial_game)

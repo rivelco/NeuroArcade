@@ -29,11 +29,10 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>16777215</height>
-       </size>
+      <property name="font">
+       <font>
+        <family>OCR A Extended</family>
+       </font>
       </property>
       <property name="title">
        <string>Parameters</string>
@@ -41,6 +40,11 @@
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0">
         <widget class="QGroupBox" name="game_parameters_box">
+         <property name="font">
+          <font>
+           <family>OCR A Extended</family>
+          </font>
+         </property>
          <property name="title">
           <string>Game</string>
          </property>
@@ -48,6 +52,11 @@
        </item>
        <item row="2" column="0">
         <widget class="QGroupBox" name="transform_parameters_box">
+         <property name="font">
+          <font>
+           <family>OCR A Extended</family>
+          </font>
+         </property>
          <property name="title">
           <string>Transformer</string>
          </property>
@@ -55,6 +64,11 @@
        </item>
        <item row="1" column="0">
         <widget class="QGroupBox" name="control_parameters_box">
+         <property name="font">
+          <font>
+           <family>OCR A Extended</family>
+          </font>
+         </property>
          <property name="title">
           <string>Controls</string>
          </property>
@@ -122,6 +136,11 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>OCR A Extended</family>
+             </font>
+            </property>
             <property name="text">
              <string>What you do</string>
             </property>
@@ -137,6 +156,11 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>OCR A Extended</family>
+             </font>
             </property>
             <property name="text">
              <string>What you get</string>
@@ -159,6 +183,7 @@
          </property>
          <property name="font">
           <font>
+           <family>OCR A Extended</family>
            <bold>true</bold>
           </font>
          </property>
@@ -180,6 +205,7 @@
          </property>
          <property name="font">
           <font>
+           <family>OCR A Extended</family>
            <bold>true</bold>
           </font>
          </property>
@@ -239,6 +265,7 @@
          </property>
          <property name="font">
           <font>
+           <family>OCR A Extended</family>
            <bold>true</bold>
           </font>
          </property>
@@ -289,8 +316,8 @@
       </property>
       <property name="font">
        <font>
-        <family>Consolas</family>
-        <pointsize>21</pointsize>
+        <family>Agency FB</family>
+        <pointsize>22</pointsize>
         <bold>true</bold>
        </font>
       </property>
@@ -310,8 +337,15 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <family>Gadugi</family>
+        <pointsize>10</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="text">
-       <string>rivel_co</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made by &lt;a href=&quot;https://github.com/rivelco&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;rivel_co&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/rivelco/NeuroArcade&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Source Code&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -326,28 +360,19 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="font">
+       <font>
+        <family>OCR A Extended</family>
+       </font>
+      </property>
       <property name="title">
        <string>General game controls</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="4">
-        <widget class="QLabel" name="game_speed_right_lbl">
+       <item row="0" column="8">
+        <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Fast</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="game_speed_left_lbl">
-         <property name="text">
-          <string>Slow</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QSpinBox" name="global_timer">
-         <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
+          <string>Refresh rate</string>
          </property>
         </widget>
        </item>
@@ -357,17 +382,42 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>Reset</string>
+          <string>Reset (esc)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QSpinBox" name="game_speed_slider">
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
          </property>
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QSlider" name="game_speed_slider">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Speed factor</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9">
+        <widget class="QSpinBox" name="global_timer">
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="Line" name="line_2">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
@@ -377,7 +427,27 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>Start</string>
+          <string>Start (space)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QCheckBox" name="dark_check">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>Dark</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="Line" name="line_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>

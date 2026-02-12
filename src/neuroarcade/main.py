@@ -107,6 +107,7 @@ class MainWindow(QMainWindow):
         self.game_selector_combo.currentTextChanged.connect(self.change_selected_game)
         self.control_selector_combo.currentTextChanged.connect(self.change_selected_control)
         self.transformer_selector_combo.currentTextChanged.connect(self.change_selected_transform)
+        self.dark_check.stateChanged.connect(self.switch_dark_mode)
 
     # --------------------------------------------------
 
@@ -199,6 +200,13 @@ class MainWindow(QMainWindow):
         if not isinstance(self.control, KeyboardControl):
             return
         self.control.set_direction(None)
+    
+    # ---- Related to the theme switch ----
+    def switch_dark_mode(self):
+        if self.dark_check.isChecked():
+            qdarktheme.setup_theme()
+        else:
+            qdarktheme.setup_theme("light")
 
 # Entry point
 def main():

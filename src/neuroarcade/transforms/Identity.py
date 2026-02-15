@@ -1,5 +1,6 @@
 from neuroarcade.transforms.base import BaseTransform
 from neuroarcade.core.direction import Direction
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 class Identity(BaseTransform):
     """
@@ -14,3 +15,33 @@ class Identity(BaseTransform):
         Parameters that the UI can expose dynamically.
         """
         return {}
+
+    def get_instructions(self):
+        return ""
+    
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+
+            <h1>Identity</h1>
+
+            <div class="section">
+                <p>
+                    This transformer does not transform the controller.
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>You move LEFT -> The transform gives you LEFT</li>
+                    <li>You move RIGHT -> The transform gives you RIGHT</li>
+                    <li>You move UP -> The transform gives you UP</li>
+                    <li>You move DOWN -> The transform gives you DOWN</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

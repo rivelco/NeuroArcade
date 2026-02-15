@@ -2,15 +2,19 @@ from neuroarcade.transforms.base import BaseTransform
 from neuroarcade.core.direction import Direction
 from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
-class InvertedY(BaseTransform):
+class Rotated90Left(BaseTransform):
     """
     Default transform: no remapping.
     """
 
     def apply(self, direction: Direction) -> Direction:
         if direction == Direction.UP:
+            return Direction.LEFT
+        if direction == Direction.LEFT:
             return Direction.DOWN
         if direction == Direction.DOWN:
+            return Direction.RIGHT
+        if direction == Direction.RIGHT:
             return Direction.UP
         return direction
     
@@ -30,17 +34,17 @@ class InvertedY(BaseTransform):
 
             <div class="section">
                 <p>
-                    This transformer inverts the Y controls.
+                    This transformer rotates the controllers 90 degrees anti-clockwise.
                 </p>
             </div>
 
             <h2>How It Works</h2>
             <div class="box">
                 <ul>
-                    <li>You move LEFT -> The transform gives you LEFT</li>
-                    <li>You move RIGHT -> The transform gives you RIGHT</li>
-                    <li>You move UP -> The transform gives you DOWN</li>
-                    <li>You move DOWN -> The transform gives you UP</li>
+                    <li>You move LEFT -> The transform gives you DOWN</li>
+                    <li>You move RIGHT -> The transform gives you UP</li>
+                    <li>You move UP -> The transform gives you LEFT</li>
+                    <li>You move DOWN -> The transform gives you RIGHT</li>
                 </ul>
             </div>
         </body>

@@ -8,6 +8,7 @@ from mediapipe.tasks.python.components.containers import NormalizedLandmark
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 from importlib.resources import files
 
@@ -248,3 +249,34 @@ class ExpressionTracker(BaseControl):
             },
         }
 
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>Expression Tracker</h1>
+
+            <div class="section">
+                <p>
+                    Make different facial gestures to control the movement in the game. You need a working camera connected for this control to work.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local ML model.</li>
+                    <li>The model recognizes key landmarks in your face and extract the coordinates of those points.</li>
+                    <li>You can visualize key landmarks of your face using the parameters box. Some key-key landmarks are shown in different colors.</li>
+                    <li>The model identifies the specific distribution of landmarks to identify a gesture.</li>
+                    <li>The model reports a probability of you doing a specific gesture.</li>
+                    <li>If the probability is high enough then the gesture is parsed to a specific movement direction.</li>
+                    <li>You can tune this probabilities parameter and a list of available recognizable gestures in the parameters box.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

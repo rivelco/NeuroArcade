@@ -7,6 +7,7 @@ from mediapipe.tasks.python import vision
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 from importlib.resources import files
 
@@ -68,8 +69,6 @@ class HandGestures(BaseControl):
         )
         self.detector = vision.GestureRecognizer.create_from_options(options)
 
-        self.neutral = None
-
     # -------------------------------------------------
     def update(self):
         ret, frame = self.cap.read()
@@ -111,8 +110,8 @@ class HandGestures(BaseControl):
                             "Pointing_Up",
                             "Thumb_Down",
                             "Thumb_Up",
-                            "Victory",
-                            "ILoveYou"]
+                            "Victory"]
+                            #"ILoveYou"]
         return {
             "camera": {
                 "name": "Index of camera device",
@@ -147,6 +146,36 @@ class HandGestures(BaseControl):
                 "description": "Gesture to make to move right",
                 "type": "enum",
                 "options": available_gestures,
-                "default": "Closed_Fist"
+                "default": "Victory"
             },
         }
+
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>Hand Gestures Tracker</h1>
+
+            <div class="section">
+                <p>
+                    Make different gestures using your hands to move in the game. This version needs and will use the data of only one hand at the time.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local ML model.</li>
+                    <li>The model recognizes hands in the frame, keeps only one hand and then identify key landmarks in that hand.</li>
+                    <li>Those key landmarks will be shown in the camera feed and will be used to predict a hand gesture.</li>
+                    <li>You can tune the hand gesture using the parameters box.</li>
+                    <li>Change between gestures to change the movement. You can move your hand out of the frame to stay still.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

@@ -7,6 +7,7 @@ from mediapipe.tasks.python import vision
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 from importlib.resources import files
 
@@ -26,7 +27,6 @@ class FaceTracker(BaseControl):
         )
 
         self.detector = vision.FaceLandmarker.create_from_options(options)
-        self.neutral = None
 
     # -------------------------------------------------
     def update(self):
@@ -77,3 +77,33 @@ class FaceTracker(BaseControl):
                 "max": 50
             },
         }
+
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>Expression Tracker</h1>
+
+            <div class="section">
+                <p>
+                    Place your nose in different parts of the camera frame to interact with the game.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local ML model.</li>
+                    <li>The model recognizes the nose landmark in your face and extract the coordinates of that point.</li>
+                    <li>Your nose will be identified in each frame with a green point.</li>
+                    <li>You have to move your face around to move in the game.</li>
+                    <li>Move to the upper part of the frame to move up, to the left part of the frame to move left and so on.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

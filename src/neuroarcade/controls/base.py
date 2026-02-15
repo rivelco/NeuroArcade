@@ -14,3 +14,8 @@ class BaseControl(ABC):
         Parameters that the UI can expose dynamically.
         """
         pass
+    
+    @abstractmethod
+    def get_instructions(self) -> dict:
+        """Return instructions the UI should expose"""
+        pass

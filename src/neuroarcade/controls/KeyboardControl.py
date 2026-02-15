@@ -3,6 +3,7 @@ import cv2
 
 from neuroarcade.controls.base import BaseControl
 from neuroarcade.core.direction import Direction
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 
 class KeyboardControl(BaseControl):
@@ -45,3 +46,28 @@ class KeyboardControl(BaseControl):
                         (255, 255, 255), 1, cv2.LINE_AA)
 
         return img
+
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+
+            <h1>Keyboard Control</h1>
+
+            <div class="section">
+                <p>
+                    Use the arrows in your keyboard to move.
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>Press each arrow to move in that direction.</li>
+                    <li>The movement will repeat as long as you keep pressing the key.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

@@ -1,6 +1,7 @@
 import cv2
 from neuroarcade.controls.base import BaseControl
 from neuroarcade.core.direction import Direction
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 
 class QRTracker(BaseControl):
@@ -92,3 +93,30 @@ class QRTracker(BaseControl):
         if self.cap.isOpened():
             self.cap.release()
 
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>QR Tracker</h1>
+
+            <div class="section">
+                <p>
+                    Place a QR code (any will do) and move it around the FOV to move in the game.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local QR detection algorithm.</li>
+                    <li>The algorithm will detect the coordinates of the center of the QR code.</li>
+                    <li>If the center of the QR is in the top-center region of the FOV the game moves up, and so on.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

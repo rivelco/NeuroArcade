@@ -7,6 +7,7 @@ from mediapipe.tasks.python import vision
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 from importlib.resources import files
 
@@ -201,3 +202,34 @@ class ObjectDetection(BaseControl):
             },
         }
 
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>Object Detection</h1>
+
+            <div class="section">
+                <p>
+                    Show different items to the camera feed to produce a specific movement in the game.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local ML model.</li>
+                    <li>The model recognizes a limited amount of objects in the frame and those are classified.</li>
+                    <li>Then will select the predicted "main" object shown and will check if that object is related to a movement.</li>
+                    <li>The "main" object in the frame will be displayed on top of the video feed.</li>
+                    <li>The model recognizes over 1000 different objects, so better check how the model recognizes 
+                        the objects you want to use and use those names in the parameters box.</li>
+                    <li>Increase the number of objected identified per frame to increase stability at the cost of speed.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

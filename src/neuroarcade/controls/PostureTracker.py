@@ -4,10 +4,10 @@ import mediapipe as mp
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
-from mediapipe.tasks.python.components.containers import NormalizedLandmark
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 from importlib.resources import files
 
@@ -52,7 +52,6 @@ class PostureTracker(BaseControl):
             output_segmentation_masks=True)
 
         self.detector = vision.PoseLandmarker.create_from_options(options)
-        self.neutral = None
 
     # -------------------------------------------------
     def update(self):
@@ -120,3 +119,36 @@ class PostureTracker(BaseControl):
             }
         }
 
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>Posture Tracker</h1>
+
+            <div class="section">
+                <p>
+                    Change your body posture to change the movement in the game. In the current version only one body will be recognized.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local ML model.</li>
+                    <li>The model recognizes how many bodies there are and will select one to place key landmarks.</li>
+                    <li>Each landmark will be shown in the video feed and is associated to a different body part.</li>
+                    <li>Using the body parts coordinates the program will estimate your current posture.</li>
+                    <li>To move up rise both hands above your nose level and within your shoulders width.</li>
+                    <li>To move down left both hands hanging down, below your hips.</li>
+                    <li>To move left rise your left hand to the side, above the hips and below the left shoulder.</li>
+                    <li>To move right rise your right hand to the side, above the hips and below the right shoulder.</li>
+                    <li>To stay still keep your hands close to your chest, between your shoulders.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

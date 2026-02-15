@@ -7,6 +7,7 @@ from mediapipe.tasks.python import vision
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 from importlib.resources import files
 
@@ -123,3 +124,33 @@ class GazeTracker(BaseControl):
             }
         }
 
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+            <h1>Gaze Tracker</h1>
+
+            <div class="section">
+                <p>
+                    Place your face in the middle of the camera frames. The idea is that when looking forward you have the camera in the center of your FOV.
+                    Once in this position, move your eyes up to move up, move left to mode left, and so on. You stay still by looking to the front.
+                    This is challenging to do without someone telling you where to move, because following the game with your eyes may cause involuntary movements in the game.
+                </p>
+                <p>
+                    <span class="highlight">The camera data never leaves your device nor is used to train another model and no video is recorded.</span>
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>This control is constantly capturing a video (a bunch of frames) and pass those to a local ML model.</li>
+                    <li>The model recognizes key landmarks in your face and eyes and extract the coordinates of those points.</li>
+                    <li>The model estimates where you're looking at using those coordinates.</li>
+                    <li>You have to make saccadic eye movements to move in the games.</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """

@@ -22,6 +22,7 @@ from neuroarcade.utils.loader import discover_classes
 from neuroarcade.ui.configurator import update_box_options, read_config
 from neuroarcade.visualizers.controls import InputVisualization
 from neuroarcade.ui.InstructionsWindow import InstructionsWindow
+from neuroarcade.core.SoundManager import MusicManager
 
 
 # Utility OpenCV image to Qt scaled image
@@ -92,19 +93,25 @@ class MainWindow(QMainWindow):
         self.trans_output_vis = InputVisualization(size=120, offset=35)
         
         # ---- Speed controllers ----
-        self.game_speed_slider.setRange(30, 300)
+        self.game_speed_slider.setRange(1, 300)
         self.game_speed_slider.setValue(120)
         self.game_speed_slider.setToolTip("Lower values decreases game speed.")
 
-        self.global_timer.setRange(10, 600)
-        self.global_timer.setValue(30)
-
+        #self.global_timer.setRange(10, 600)
+        #self.global_timer.setValue(30)
+        
         # ---- Timing ----
         self.timer = QTimer()
         self.timer.timeout.connect(self.loop)
-        self.timer.start(self.global_timer.value())
-
+        self.timer.start(30)
         self.last_tick = time.time()
+        
+        # ---- Sounds ----
+        self.initialize_music()
+        self.music_selector_combo.currentTextChanged.connect(self.change_music)
+        self.music_volume_slider.valueChanged.connect(self.change_music_volume)
+        self.music_volume_slider.setValue(40)
+        self.change_music_volume(40)
 
         # ---- Signals ----
         self.start_game_button.clicked.connect(self.start_game)
@@ -218,7 +225,10 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key.Key_Escape:
             self.reset_game()
         if event.key() == Qt.Key.Key_Space:
-            self.start_game()
+            if self.game.is_running():
+                self.reset_game()
+            else:
+                self.start_game()
             
         # Special case for the KeyboardControl
         if isinstance(self.control, KeyboardControl):
@@ -258,6 +268,35 @@ class MainWindow(QMainWindow):
         button.setIconSize(QSize(size, size))
         button.setFixedSize(size + 12, size + 12)
         button.setCursor(Qt.CursorShape.PointingHandCursor)
+
+    def initialize_music(self):
+        self.sounds = MusicManager()
+        available_music = []
+        sounds_package = files("neuroarcade.sounds")
+
+        for file in sounds_package.iterdir():
+            if not file.is_file():
+                continue
+            filename = file.name
+            # Only WAV files starting with "music_"
+            if filename.startswith("music_") and filename.endswith(".wav"):
+                # Remove prefix and extension
+                music_name = filename[len("music_"):-4]
+                available_music.append(music_name)
+                path = str(file)
+                self.sounds.load(
+                    name=music_name,
+                    path=path
+                )
+        self.music_selector_combo.addItems(available_music)
+        self.sounds.play(available_music[0])
+    
+    def change_music(self, name):
+        self.sounds.play(name)
+        
+    def change_music_volume(self, volume):
+        self.sounds.set_volume_percent(volume)
+        
 # Entry point
 def main():
     parser = argparse.ArgumentParser()

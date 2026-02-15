@@ -12,8 +12,8 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import (
     QMainWindow, QApplication, QWidget
 )
-from PyQt6.QtCore import QTimer, Qt, QEvent
-from PyQt6.QtGui import QImage, QPixmap
+from PyQt6.QtCore import QTimer, Qt, QEvent, QSize
+from PyQt6.QtGui import QImage, QPixmap, QIcon
 
 # NeuroArcade core
 from neuroarcade.core.direction import Direction
@@ -52,6 +52,9 @@ class MainWindow(QMainWindow):
         ui_path = str(files("neuroarcade.ui").joinpath("MainWindow.ui"))
         loadUi(ui_path, self)
         self.setWindowTitle('NeuroArcade')
+        icon = str(files("neuroarcade.ui.icons").joinpath("ArcadeIcon.svg"))
+        self.setWindowIcon(QIcon(icon))
+        self.switch_dark_mode()
         
         # ---- Discover elements ----
         self.games = discover_classes("neuroarcade.games")
@@ -235,11 +238,26 @@ class MainWindow(QMainWindow):
     
     # ---- Related to the theme switch ----
     def switch_dark_mode(self):
+        instructions_buttons = [self.control_instructions_button,
+                                self.transform_instructions_button,
+                                self.game_instructions_button]
+        icon = ""
         if self.dark_check.isChecked():
+            icon = str(files("neuroarcade.ui.icons").joinpath("help_question_fdark.svg"))
             qdarktheme.setup_theme()
         else:
+            icon = str(files("neuroarcade.ui.icons").joinpath("help_question_flight.svg"))
             qdarktheme.setup_theme("light")
-
+        
+        for ins_button in instructions_buttons:
+            self.set_svg_icon(ins_button, icon)
+            
+    def set_svg_icon(self, button, path, size=24):
+        button.setText("")
+        button.setIcon(QIcon(path))
+        button.setIconSize(QSize(size, size))
+        button.setFixedSize(size + 12, size + 12)
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
 # Entry point
 def main():
     parser = argparse.ArgumentParser()

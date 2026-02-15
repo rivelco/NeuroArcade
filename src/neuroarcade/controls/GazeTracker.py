@@ -4,6 +4,7 @@ import mediapipe as mp
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+from mediapipe.tasks.python.components.containers import NormalizedLandmark
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.controls.base import BaseControl
@@ -62,6 +63,8 @@ class GazeTracker(BaseControl):
             if self.neutral is None:
                 self.neutral = (nx, ny)
 
+            frame = self.paint_landmarks(frame, result.face_landmarks[0])
+            
             up = self._get_blend(blends, "eyeLookUpLeft")
             down = self._get_blend(blends, "eyeLookDownLeft")
             right = self._get_blend(blends, "eyeLookOutLeft")
@@ -83,6 +86,44 @@ class GazeTracker(BaseControl):
             if b.category_name == name:
                 return b.score
         return 0.0
+    
+    def paint_landmarks(self, frame, landmarks):
+        h, w, _ = frame.shape
+        coords = self.get_landmark_coords(landmarks, w, h)
+        if False: # Draw the landmarks index, useful for debug
+            for idx, (x, y, _) in enumerate(coords):
+                cv2.putText(
+                    frame,
+                    str(idx),
+                    (x, y),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.3,
+                    (0, 255, 0),
+                    1,
+                    cv2.LINE_AA
+                )
+                
+        nose = coords[1]
+        cv2.circle(frame, (nose[0], nose[1]), 6, (0, 0, 255), -1)
+        left_eye_left = coords[471]
+        left_eye_middle = coords[468]
+        left_eye_right = coords[469]
+        right_eye_left = coords[476]
+        right_eye_middle = coords[473]
+        right_eye_right = coords[474]
+        cv2.circle(frame, (left_eye_left[0], left_eye_left[1]), 5, (255, 255, 0), -1)
+        cv2.circle(frame, (left_eye_middle[0], left_eye_middle[1]), 5, (255, 255, 0), -1)
+        cv2.circle(frame, (left_eye_right[0], left_eye_right[1]), 5, (255, 255, 0), -1)
+        cv2.circle(frame, (right_eye_left[0], right_eye_left[1]), 5, (255, 255, 0), -1)
+        cv2.circle(frame, (right_eye_middle[0], right_eye_middle[1]), 5, (255, 255, 0), -1)
+        cv2.circle(frame, (right_eye_right[0], right_eye_right[1]), 5, (255, 255, 0), -1)
+            
+        return frame
+
+    def get_landmark_coords(self, landmarks: list[NormalizedLandmark], width: int, height: int) -> np.ndarray:
+        """Extract normalized landmark coordinates to array of pixel coordinates."""
+        xyz = [(lm.x, lm.y, lm.z) for lm in landmarks]
+        return np.multiply(xyz, [width, height, width]).astype(int)
 
     # -------------------------------------------------
     def get_config_schema(self):

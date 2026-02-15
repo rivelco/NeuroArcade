@@ -5,7 +5,7 @@ import cv2
 
 from neuroarcade.games.base import BaseGame
 from neuroarcade.core.direction import Direction
-
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 class TargetReachGame(BaseGame):
     """
@@ -176,3 +176,39 @@ class TargetReachGame(BaseGame):
                 "description": "Pixel size of each grid cell"
             },
         }
+
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
+
+            <h1>Target Reach</h1>
+
+            <div class="section">
+                <p>
+                    Familiarization game. Move the green square to the red target.
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>You're the green square moving across the field and have to reach each red target.</li>
+                    <li>Do it as fast and as efficiently as you can.</li>
+                </ul>
+            </div>
+
+            <h2>Winning</h2>
+            <p>
+                Once you reach the red target, you <span class="highlight">win</span>.
+            </p>
+
+            <h2>Losing</h2>
+            <p class="warning">
+                There's no way of dying here.
+            </p>
+
+        </body>
+        </html>
+        """

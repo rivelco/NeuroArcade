@@ -5,6 +5,7 @@ import time
 
 from neuroarcade.games.base import BaseGame
 from neuroarcade.core.direction import Direction
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 class SnakeGame(BaseGame):
     def __init__(self, grid_w=32, grid_h=24, cell=20):
@@ -141,6 +142,16 @@ class SnakeGame(BaseGame):
 
         return img
 
+    # ---------------- Internal helpers ----------------
+
+    def _random_food(self):
+        return (
+            random.randint(0, self.grid_w - 1),
+            random.randint(0, self.grid_h - 1)
+        )
+
+    # -------------------------------------------------
+    
     def get_config_schema(self) -> dict:
         """
         Parameters that the UI can expose dynamically.
@@ -160,19 +171,47 @@ class SnakeGame(BaseGame):
                 "max": 100, 
                 "default": 24
                 },
-            #"cell": {
-            #    "name": "Cell", 
-            #    "description": "Cell size in pixels", 
-            #    "min": 10, 
-            #    "max": 40, 
-            #    "default": 20
-            #    },
+            "cell": {
+                "name": "Cell", 
+                "description": "Cell size in pixels", 
+                "min": 10, 
+                "max": 40, 
+                "default": 20
+                },
         }
+        
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
 
-    # ---------------- Internal helpers ----------------
+            <h1>Snake</h1>
 
-    def _random_food(self):
-        return (
-            random.randint(0, self.grid_w - 1),
-            random.randint(0, self.grid_h - 1)
-        )
+            <div class="section">
+                <p>
+                    Classic snake game. Move the snake across the field to eat the red targets and grow.
+                </p>
+            </div>
+
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>You're the green snake moving across the field and has to reach each red target.</li>
+                    <li>Collect as many targets as possible without colliding with a wall.</li>
+                </ul>
+            </div>
+
+            <h2>Winning</h2>
+            <p>
+                You're winning all the time because you're eating as much as you can so <span class="highlight">win as long as you can.</span>.
+            </p>
+
+            <h2>Losing</h2>
+            <p class="warning">
+                If you collide with the bounds of the field, you lose.
+            </p>
+
+        </body>
+        </html>
+        """

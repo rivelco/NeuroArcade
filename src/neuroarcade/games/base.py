@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import numpy as np
+from importlib.resources import files
 from neuroarcade.core.direction import Direction
 
 class BaseGame(ABC):
@@ -30,4 +31,9 @@ class BaseGame(ABC):
     @abstractmethod
     def get_config_schema(self) -> dict:
         """Return parameters the UI should expose"""
+        pass
+    
+    @abstractmethod
+    def get_instructions(self) -> dict:
+        """Return instructions the UI should expose"""
         pass

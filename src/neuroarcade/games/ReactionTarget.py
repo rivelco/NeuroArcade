@@ -5,6 +5,7 @@ import cv2
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.games.base import BaseGame
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 
 class ReactionTarget(BaseGame):
@@ -17,6 +18,8 @@ class ReactionTarget(BaseGame):
         self.target_timeout = target_timeout
         self.target_hits = target_hits
         self.death_misses = death_misses
+        
+        self.initialize_sounds()
 
         self.reset()
 
@@ -64,6 +67,7 @@ class ReactionTarget(BaseGame):
 
         # Check hit
         if self.player == self.target:
+            self.sounds.play("eat")
             self.hits += 1
             if self.hits == self.target_hits:
                 self.stop()
@@ -125,6 +129,46 @@ class ReactionTarget(BaseGame):
 
         return img
 
+    # Internal logic
+    def _spawn_target(self, now):
+        self.target = self._random_pos()
+        self.target_spawn_time = now
+        self.target_deadline = now + self.target_timeout
+
+    def _random_pos(self):
+        return (
+            random.randint(0, self.grid_w - 1),
+            random.randint(0, self.grid_h - 1),
+        )
+
+    # HUD
+    def _draw_stats(self, img):
+        if self.is_running():
+            self.remaining = 0.0
+            if self.target_deadline:
+                self.remaining = max(0.0, self.target_deadline - time.time())
+
+        text = (
+            f"Steps: {self.steps}   "
+            f"Hits: {self.hits}   "
+            f"Misses: {self.misses}   "
+            f"Time left: {self.remaining:4.2f}s"
+        )
+
+        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
+        cv2.putText(
+            img,
+            text,
+            (10, 28),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (255, 255, 255),
+            2,
+            cv2.LINE_AA,
+        )
+
+    # -------------------------------------------------
+    
     def get_config_schema(self) -> dict:
         return {
             "grid_w": {
@@ -170,41 +214,40 @@ class ReactionTarget(BaseGame):
                 "description": "How many misses are needed to lose",
             },
         }
+        
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
 
-    # Internal logic
-    def _spawn_target(self, now):
-        self.target = self._random_pos()
-        self.target_spawn_time = now
-        self.target_deadline = now + self.target_timeout
+            <h1>Reaction Target</h1>
 
-    def _random_pos(self):
-        return (
-            random.randint(0, self.grid_w - 1),
-            random.randint(0, self.grid_h - 1),
-        )
+            <div class="section">
+                <p>
+                    A red target appears at a random position. Go to that position before the time finishes.
+                </p>
+            </div>
 
-    # HUD
-    def _draw_stats(self, img):
-        if self.is_running():
-            self.remaining = 0.0
-            if self.target_deadline:
-                self.remaining = max(0.0, self.target_deadline - time.time())
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>A red target appears at a random position.</li>
+                    <li>You must reach that target before the time ends.</li>
+                    <li>If you don't reach the target in time the target will move to a different location and will be marked as a miss.</li>
+                </ul>
+            </div>
 
-        text = (
-            f"Steps: {self.steps}   "
-            f"Hits: {self.hits}   "
-            f"Misses: {self.misses}   "
-            f"Time left: {self.remaining:4.2f}s"
-        )
+            <h2>Winning</h2>
+            <p>
+                If you make the specified number of hits, you <span class="highlight">win</span>.
+            </p>
 
-        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
-        cv2.putText(
-            img,
-            text,
-            (10, 28),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.7,
-            (255, 255, 255),
-            2,
-            cv2.LINE_AA,
-        )
+            <h2>Losing</h2>
+            <p class="warning">
+                If you fail to reach the target in time the specified number of times, you lose.
+            </p>
+
+        </body>
+        </html>
+        """

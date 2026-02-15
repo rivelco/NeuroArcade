@@ -5,6 +5,7 @@ import cv2
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.games.base import BaseGame
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 
 class MemoryPath(BaseGame):
@@ -34,6 +35,9 @@ class MemoryPath(BaseGame):
         self.show_index = 0
         self.last_show_switch = time.time()
         self.flash_on = True
+        
+        self.start_time = None
+        self.end_time = None
 
         self.steps = 0
 
@@ -49,6 +53,10 @@ class MemoryPath(BaseGame):
 
         if self.state != "playing":
             return
+        
+        if self.start_time is None:
+            self.start_time = time.time()
+            self.end_time = None
 
         # ----------------- movement -----------------
         if direction is not None:
@@ -115,6 +123,108 @@ class MemoryPath(BaseGame):
         self._draw_stats(img)
         return img
 
+    # Showing phase
+    def _update_showing(self, now):
+        if self.flash_on and now - self.last_show_switch > self.show_time:
+            self.flash_on = False
+            self.last_show_switch = now
+        elif not self.flash_on and now - self.last_show_switch > self.pause_time:
+            self.show_index += 1
+            self.last_show_switch = now
+            self.flash_on = True
+
+            if self.show_index >= len(self.path):
+                self.state = "playing"
+
+    # Game logic
+    def _check_progress(self):
+        idx = len(self.user_path) - 1
+
+        # If deviates from path then lose
+        if idx >= len(self.path) or self.user_path[idx] != self.path[idx]:
+            self.end_time = time.time()
+            self.state = "lose"
+            return
+
+        # If completed correctly then win
+        if idx == len(self.path) - 1:
+            self.end_time = time.time()
+            self.state = "win"
+
+    def _generate_path(self, length):
+        path = [self.player]
+        idxs = []
+        for _ in range(length - 1):
+            x, y = path[-1]
+            neighbors = [
+                (x + 1, y),
+                (x, y + 1),
+                (x - 1, y),
+                (x, y - 1),
+            ]
+            neighbors = [(nx, ny) for nx, ny in neighbors if 0 <= nx < self.grid_w and 0 <= ny < self.grid_h]
+            # Simple trick to avoid "back and forth" movements
+            new_idx = random.choice(range(len(neighbors)))
+            invalid = len(idxs) > 0
+            while invalid:
+                if new_idx % 2 == idxs[-1] % 2:
+                    new_idx = random.choice(range(len(neighbors)))
+                else:
+                    invalid = False
+            path.append(neighbors[new_idx])
+            idxs.append(new_idx)
+        return path
+
+    def _random_pos(self):
+        return (
+            random.randint(0, self.grid_w - 1),
+            random.randint(0, self.grid_h - 1),
+        )
+
+    # HUD
+    def _draw_stats(self, img):
+        elapsed = 0
+        if self.start_time:
+            elapsed = (self.end_time or time.time()) - self.start_time
+        
+        corr = 0
+        if self.state == 'lose':
+            corr = 1
+        text = f"Progress: {len(self.user_path)-corr}/{len(self.path)}   "
+        if self.state in ['showing', 'playing'] and self.is_running():
+            text += f"{self.state.upper()}"
+        
+        text += f"  Time: {elapsed:5.2f}s"
+
+        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
+        cv2.putText(
+            img,
+            text,
+            (10, 28),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (255, 255, 255),
+            2,
+            cv2.LINE_AA,
+        )
+        
+        if self.state == 'win':
+            cv2.putText(
+                img, "YOU WIN",
+                (self.cell * 3, self.cell * 3),
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2,
+                (0, 255, 0), 3, cv2.LINE_AA
+            )
+        elif self.state == 'lose':
+            cv2.putText(
+                img, "GAME OVER",
+                (self.cell * 3, self.cell * 3),
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2,
+                (0, 0, 255), 3, cv2.LINE_AA
+            )
+    
+    # -------------------------------------------------
+     
     def get_config_schema(self) -> dict:
         return {
             "grid_w": {
@@ -161,94 +271,39 @@ class MemoryPath(BaseGame):
             },
         }
 
-    # Showing phase
-    def _update_showing(self, now):
-        if self.flash_on and now - self.last_show_switch > self.show_time:
-            self.flash_on = False
-            self.last_show_switch = now
-        elif not self.flash_on and now - self.last_show_switch > self.pause_time:
-            self.show_index += 1
-            self.last_show_switch = now
-            self.flash_on = True
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
 
-            if self.show_index >= len(self.path):
-                self.state = "playing"
+            <h1>Memory Path</h1>
 
-    # Game logic
-    def _check_progress(self):
-        idx = len(self.user_path) - 1
+            <div class="section">
+                <p>
+                    Reproduce the sequence of highlighted cells in the correct order.
+                </p>
+            </div>
 
-        # If deviates from path then lose
-        if idx >= len(self.path) or self.user_path[idx] != self.path[idx]:
-            self.state = "lose"
-            return
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>A sequence of cells lights up briefly.</li>
+                    <li>The sequence disappears.</li>
+                    <li>You must reproduce the path in the same order.</li>
+                </ul>
+            </div>
 
-        # If completed correctly then win
-        if idx == len(self.path) - 1:
-            self.state = "win"
+            <h2>Winning</h2>
+            <p>
+                If you reproduce the entire path correctly, you <span class="highlight">win</span>.
+            </p>
 
-    def _generate_path(self, length):
-        path = [self.player]
-        idxs = []
-        for _ in range(length - 1):
-            x, y = path[-1]
-            neighbors = [
-                (x + 1, y),
-                (x, y + 1),
-                (x - 1, y),
-                (x, y - 1),
-            ]
-            neighbors = [(nx, ny) for nx, ny in neighbors if 0 <= nx < self.grid_w and 0 <= ny < self.grid_h]
-            # Simple trick to avoid "back and forth" movements
-            new_idx = random.choice(range(len(neighbors)))
-            invalid = len(idxs) > 0
-            while invalid:
-                if new_idx % 2 == idxs[-1] % 2:
-                    new_idx = random.choice(range(len(neighbors)))
-                else:
-                    invalid = False
-            path.append(neighbors[new_idx])
-            idxs.append(new_idx)
-        return path
+            <h2>Losing</h2>
+            <p class="warning">
+                If you select a wrong cell, the game ends.
+            </p>
 
-    def _random_pos(self):
-        return (
-            random.randint(0, self.grid_w - 1),
-            random.randint(0, self.grid_h - 1),
-        )
-
-    # HUD
-    def _draw_stats(self, img):
-        corr = 0
-        if self.state == 'lose':
-            corr = 1
-        text = f"Progress: {len(self.user_path)-corr}/{len(self.path)}   "
-        if self.state in ['showing', 'playing'] and self.is_running():
-            text += f"{self.state.upper()}"
-
-        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
-        cv2.putText(
-            img,
-            text,
-            (10, 28),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.7,
-            (255, 255, 255),
-            2,
-            cv2.LINE_AA,
-        )
-        
-        if self.state == 'win':
-            cv2.putText(
-                img, "YOU WIN",
-                (self.cell * 3, self.cell * 3),
-                cv2.FONT_HERSHEY_SIMPLEX, 1.2,
-                (0, 255, 0), 3, cv2.LINE_AA
-            )
-        elif self.state == 'lose':
-            cv2.putText(
-                img, "GAME OVER",
-                (self.cell * 3, self.cell * 3),
-                cv2.FONT_HERSHEY_SIMPLEX, 1.2,
-                (0, 0, 255), 3, cv2.LINE_AA
-            )
+        </body>
+        </html>
+        """

@@ -5,6 +5,7 @@ import cv2
 
 from neuroarcade.core.direction import Direction
 from neuroarcade.games.base import BaseGame
+from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 
 class MazeRunner(BaseGame):
@@ -115,6 +116,51 @@ class MazeRunner(BaseGame):
 
         return img
 
+    # Maze logic
+    def _generate_maze(self):
+        maze = np.zeros((self.grid_h, self.grid_w), dtype=np.uint8)
+
+        for y in range(self.grid_h):
+            for x in range(self.grid_w):
+                if random.random() < self.wall_density:
+                    maze[y, x] = 1
+
+        return maze
+
+    def _random_empty(self):
+        while True:
+            x = random.randint(0, self.grid_w - 1)
+            y = random.randint(0, self.grid_h - 1)
+            if self._is_free(x, y):
+                return (x, y)
+
+    def _is_free(self, x, y):
+        if x < 0 or x >= self.grid_w or y < 0 or y >= self.grid_h:
+            return False
+        return self.maze[y, x] == 0
+
+    # Stats overlay
+    def _draw_stats(self, img):
+        elapsed = 0
+        if self.start_time:
+            elapsed = (self.end_time or time.time()) - self.start_time
+        speed = self.steps/elapsed if elapsed else 0
+        text = f"Time: {elapsed:5.2f}s   Steps: {self.steps}  Speed: {speed:5.2f}"
+
+        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
+        cv2.putText(
+            img,
+            text,
+            (10, 28),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (255, 255, 255),
+            2,
+            cv2.LINE_AA
+        )
+        
+    # -------------------------------------------------
+
     def get_config_schema(self) -> dict:
         return {
             "grid_w": {
@@ -146,46 +192,41 @@ class MazeRunner(BaseGame):
                 "description": "How cluttered the maze is",
             },
         }
+    
+    def get_instructions(self) -> str:
+        return f"""
+        <html>
+            {INSTRUCTIONS_HEAD}
+        <body>
 
-    # Maze logic
-    def _generate_maze(self):
-        maze = np.zeros((self.grid_h, self.grid_w), dtype=np.uint8)
+            <h1>Maze Runner</h1>
 
-        for y in range(self.grid_h):
-            for x in range(self.grid_w):
-                if random.random() < self.wall_density:
-                    maze[y, x] = 1
+            <div class="section">
+                <p>
+                    Move the green square to the red target.
+                </p>
+            </div>
 
-        return maze
+            <h2>How It Works</h2>
+            <div class="box">
+                <ul>
+                    <li>You're the green square and have to move UP, DOWN, LEFT or RIGHT to get to the red target.</li>
+                    <li>You can move in the black space, and can't move across the gray walls.</li>
+                    <li>Finish as fast as possible to lower the running time.</li>
+                    <li>Make the most efficient path to reduce the number of steps taken.</li>
+                </ul>
+            </div>
 
-    def _random_empty(self):
-        while True:
-            x = random.randint(0, self.grid_w - 1)
-            y = random.randint(0, self.grid_h - 1)
-            if self._is_free(x, y):
-                return (x, y)
+            <h2>Winning</h2>
+            <p>
+                When you get to the red target, you <span class="highlight">win</span>.
+            </p>
 
-    def _is_free(self, x, y):
-        if x < 0 or x >= self.grid_w or y < 0 or y >= self.grid_h:
-            return False
-        return self.maze[y, x] == 0
+            <h2>Losing</h2>
+            <p class="warning">
+                There's no way to lose.
+            </p>
 
-    # Stats overlay
-    def _draw_stats(self, img):
-        elapsed = 0
-        if self.start_time:
-            elapsed = (self.end_time or time.time()) - self.start_time
-
-        text = f"Time: {elapsed:5.2f}s   Steps: {self.steps}"
-
-        #cv2.rectangle(img, (0, 0), (img.shape[1], 40), (30, 30, 30), -1)
-        cv2.putText(
-            img,
-            text,
-            (10, 28),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.8,
-            (255, 255, 255),
-            2,
-            cv2.LINE_AA
-        )
+        </body>
+        </html>
+        """

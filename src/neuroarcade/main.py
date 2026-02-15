@@ -21,6 +21,7 @@ from neuroarcade.controls.KeyboardControl import KeyboardControl
 from neuroarcade.utils.loader import discover_classes
 from neuroarcade.ui.configurator import update_box_options, read_config
 from neuroarcade.visualizers.controls import InputVisualization
+from neuroarcade.ui.InstructionsWindow import InstructionsWindow
 
 
 # Utility OpenCV image to Qt scaled image
@@ -110,6 +111,11 @@ class MainWindow(QMainWindow):
         self.control_selector_combo.currentTextChanged.connect(self.change_selected_control)
         self.transformer_selector_combo.currentTextChanged.connect(self.change_selected_transform)
         self.dark_check.stateChanged.connect(self.switch_dark_mode)
+        
+        # Instructions
+        self.control_instructions_button.clicked.connect(self.show_control_instructions)
+        self.transform_instructions_button.clicked.connect(self.show_transform_instructions)
+        self.game_instructions_button.clicked.connect(self.show_game_instructions)
 
     # --------------------------------------------------
 
@@ -148,6 +154,24 @@ class MainWindow(QMainWindow):
             self.current_transform = transform_name
         params = read_config(self.transform_parameters_box)
         self.transform = self.transforms[transform_name](**params)
+        
+    # --------------------------------------------------
+    
+    def show_game_instructions(self):
+        html = self.games[self.current_game].get_instructions(self.games[self.current_game])
+        dialog = InstructionsWindow(html, self)
+        dialog.exec()
+    
+    def show_transform_instructions(self):
+        html = self.transforms[self.current_transform].get_instructions(self.transforms[self.current_transform])
+        dialog = InstructionsWindow(html, self)
+        dialog.exec()
+        
+    def show_control_instructions(self):
+        html = self.controls[self.current_control].get_instructions(self.controls[self.current_control])
+        dialog = InstructionsWindow(html, self)
+        dialog.exec()
+
 
     # --------------------------------------------------
 

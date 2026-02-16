@@ -44,19 +44,28 @@
       <property name="font">
        <font>
         <family>OCR A Extended</family>
-        <pointsize>9</pointsize>
+        <pointsize>8</pointsize>
        </font>
       </property>
       <property name="title">
        <string>Parameters</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_5">
+       <property name="topMargin">
+        <number>4</number>
+       </property>
+       <property name="bottomMargin">
+        <number>4</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>4</number>
+       </property>
        <item row="0" column="0">
         <widget class="QGroupBox" name="game_parameters_box">
          <property name="font">
           <font>
            <family>OCR A Extended</family>
-           <pointsize>9</pointsize>
+           <pointsize>8</pointsize>
           </font>
          </property>
          <property name="title">
@@ -69,7 +78,7 @@
          <property name="font">
           <font>
            <family>OCR A Extended</family>
-           <pointsize>9</pointsize>
+           <pointsize>8</pointsize>
           </font>
          </property>
          <property name="title">
@@ -82,7 +91,7 @@
          <property name="font">
           <font>
            <family>OCR A Extended</family>
-           <pointsize>9</pointsize>
+           <pointsize>8</pointsize>
           </font>
          </property>
          <property name="title">
@@ -221,25 +230,6 @@
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="4">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made by &lt;a href=&quot;https://github.com/rivelco&quot;&gt;&lt;span style=&quot; color:#3A86FF;&quot;&gt;rivel_co&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/rivelco/NeuroArcade&quot;&gt;&lt;span style=&quot;color:#3A86FF;&quot;&gt;Source Code&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::MarkdownText</enum>
-      </property>
-      <property name="scaledContents">
-       <bool>false</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="openExternalLinks">
-       <bool>true</bool>
-      </property>
      </widget>
     </item>
     <item row="5" column="0">
@@ -446,29 +436,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0" colspan="4">
-     <widget class="QLabel" name="neuroarcade_header_lbl">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <family>Agency FB</family>
-        <pointsize>28</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>NeuroArcade</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
     <item row="5" column="2">
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
@@ -553,19 +520,56 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0" colspan="4">
+     <widget class="QLabel" name="label_5">
+      <property name="font">
+       <font>
+        <family>Segoe UI Semibold</family>
+        <pointsize>7</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made with &amp;lt;3 by &lt;a href=&quot;https://github.com/rivelco&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#3a86ff;&quot;&gt;rivel_co&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::MarkdownText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="4">
+     <widget class="QLabel" name="neuroarcade_header_lbl">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Agency FB</family>
+        <pointsize>28</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>NeuroArcade</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>815</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

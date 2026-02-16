@@ -19,6 +19,7 @@ class TargetReachGame(BaseGame):
         self.grid_w = grid_w
         self.grid_h = grid_h
         self.cell = cell
+        self.initialize_sounds()
         self.reset()
 
     # --------------------------------------------------
@@ -67,6 +68,7 @@ class TargetReachGame(BaseGame):
 
         # Check win condition
         if self.player == self.target:
+            self.sounds.play("win")
             self.end_time = time.time()
             self.stop()
 

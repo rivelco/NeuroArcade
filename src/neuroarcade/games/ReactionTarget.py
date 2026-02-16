@@ -44,6 +44,7 @@ class ReactionTarget(BaseGame):
 
         # Spawn first or next target
         if self.target is None:
+            self.sounds.play("click")
             self._spawn_target(now)
 
         # Move player
@@ -70,14 +71,18 @@ class ReactionTarget(BaseGame):
             self.sounds.play("eat")
             self.hits += 1
             if self.hits == self.target_hits:
+                self.sounds.play("win")
                 self.stop()
             self._spawn_target(now)
+            self.sounds.play("click")
             return
 
         # Check timeout (miss)
         if now > self.target_deadline:
             self.misses += 1
+            self.sounds.play("miss")
             if self.misses == self.death_misses:
+                self.sounds.play("fail")
                 self.stop()
             self._spawn_target(now)
 

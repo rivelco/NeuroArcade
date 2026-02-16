@@ -16,7 +16,7 @@ class MazeRunner(BaseGame):
         self.grid_h = grid_h
         self.cell = cell
         self.wall_density = wall_density
-
+        self.initialize_sounds()
         self.reset()
 
     # -------------------------------------------------
@@ -60,6 +60,7 @@ class MazeRunner(BaseGame):
             self.path.append(self.player)
 
         if self.player == self.goal:
+            self.sounds.play("win")
             self.end_time = time.time()
             self.stop()
 

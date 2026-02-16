@@ -19,7 +19,7 @@ class MemoryPath(BaseGame):
         self.path_length = path_length
         self.show_time = show_time
         self.pause_time = pause_time
-
+        self.initialize_sounds()
         self.reset()
 
     # -------------------------------------------------
@@ -143,12 +143,14 @@ class MemoryPath(BaseGame):
         # If deviates from path then lose
         if idx >= len(self.path) or self.user_path[idx] != self.path[idx]:
             self.end_time = time.time()
+            self.sounds.play("fail")
             self.state = "lose"
             return
-
+        self.sounds.play("eat")
         # If completed correctly then win
         if idx == len(self.path) - 1:
             self.end_time = time.time()
+            self.sounds.play("win")
             self.state = "win"
 
     def _generate_path(self, length):

@@ -13,6 +13,7 @@ class SnakeGame(BaseGame):
         self.cell = cell
         self.grid_w = grid_w
         self.grid_h = grid_h
+        self.initialize_sounds()
         self.reset()
 
     # ---------------- BaseGame API ---------------- 
@@ -64,6 +65,7 @@ class SnakeGame(BaseGame):
             y < 0 or y >= self.grid_h or
             new_head in self.snake
         ):
+            self.sounds.play("fail")
             self.end_time = time.time()
             self.stop()  # Game over
             return
@@ -72,6 +74,7 @@ class SnakeGame(BaseGame):
         self.snake.insert(0, new_head)
 
         if new_head == self.food:
+            self.sounds.play("eat")
             self.score += 1
             self.food = self._random_food()
         else:

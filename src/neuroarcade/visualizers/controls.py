@@ -5,6 +5,15 @@ from neuroarcade.core.direction import Direction
 
 class InputVisualization():
     def __init__(self, size=300, offset=60):
+        """Visualization object to display the behavior of a controller or transform.
+        
+        Creates a frame depicting keyboard arrows that is updated with each change 
+        in the controller or transformer.
+
+        Args:
+            size (int, optional): Size of the visualizer. Defaults to 300.
+            offset (int, optional): Offset of the buttons with the text inside them. Defaults to 60.
+        """
         self.size = size
         self.offset = offset
         self.img = np.zeros((size, size, 3), dtype=np.uint8)
@@ -18,7 +27,16 @@ class InputVisualization():
             Direction.RIGHT: (self.center + self.offset, self.center),
         }
 
-    def update(self, new_direction):
+    def update(self, new_direction: Direction) -> np.ndarray:
+        """Function called every game tick to update the visualization
+        based in the response of the controller or the transform.
+
+        Args:
+            new_direction (Direction): Direction received, to be highlighted.
+
+        Returns:
+            np.ndarray: New frame showing the updated visualization.
+        """
         for direction, (x, y) in self.positions.items():
             color = (0, 200, 0) if direction == new_direction else (80, 80, 80)
             half_off = self.offset//2

@@ -3,11 +3,18 @@ import importlib
 import inspect
 
 
-def discover_classes(package_name: str):
-    """
+def discover_classes(package_name: str) -> dict:
+    """Function used to discover classes for games, controls and transformers.
+    
     Discover classes where:
       - file name == class name
       - class is defined in that file
+
+    Args:
+        package_name (str): The expected name of the package.
+
+    Returns:
+        dict: Dictionary mapping the name of the module with the callable module.
     """
     classes = {}
 

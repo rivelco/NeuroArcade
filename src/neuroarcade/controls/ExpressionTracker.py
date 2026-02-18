@@ -13,10 +13,34 @@ from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 from importlib.resources import files
 
 class ExpressionTracker(BaseControl):
+    """
+    Creates a mediapipe based controller that uses and tracks the facial gestures
+    made by the user to return a direction.
+    
+    For this controller to work a camera is needed.
+    """
     def __init__(self, camera=0,
                  gest_up = "rise_eyebrows", gest_down = "mouth_open", gest_left = "left_smile", gest_right = "right_smile",
                  prob_up = 0.4, prob_down = 0.4, prob_left = 0.4, prob_right = 0.4,
                  draw_lands = True, complete_lands=False, highlight_lands=True):
+        """Initializes an Expression Identifier mediapipe based controller.
+        
+        The function initializes a mediapipe detector using the `face_landmarker.task` model.
+
+        Args:
+            camera (int, optional): Index of the camera device to use. Defaults to 0.
+            gest_up (str, optional): Key name of the gesture to use to move UP. Defaults to "rise_eyebrows".
+            gest_down (str, optional): Key name of the gesture to use to move DOWN. Defaults to "mouth_open".
+            gest_left (str, optional): Key name of the gesture to use to move left. Defaults to "left_smile".
+            gest_right (str, optional): Key name of the gesture to use to move RIGHT. Defaults to "right_smile".
+            prob_up (float, optional): Threshold probability to identify the gesture for UP. Defaults to 0.4.
+            prob_down (float, optional): Threshold probability to identify the gesture for DOWN. Defaults to 0.4.
+            prob_left (float, optional): Threshold probability to identify the gesture for LEFT. Defaults to 0.4.
+            prob_right (float, optional): Threshold probability to identify the gesture for RIGHT. Defaults to 0.4.
+            draw_lands (bool, optional): Whether or not to show landmarks in the camera feed. Defaults to True.
+            complete_lands (bool, optional): Whether or not to show the complete landmarks on the camera feed. Defaults to False.
+            highlight_lands (bool, optional): Whether or not to show the highlighted landmarks. Defaults to True.
+        """
         self.cap = cv2.VideoCapture(camera)
         self.gest_up = gest_up
         self.gest_down = gest_down
@@ -45,7 +69,21 @@ class ExpressionTracker(BaseControl):
         self.neutral = None
 
     # -------------------------------------------------
-    def update(self):
+    def update(self) -> tuple[Direction, np.ndarray]:
+        """
+        A frame is acquired by the camera and processed by the mediapipe model.
+        The face landmarks are extracted and a gesture is identified using the 
+        probability threshold of each one.
+        
+        If the user has selected the drawing of the landmarks then those are added
+        to the frame
+        
+        Returns:
+            tuple[Direction | None, np.ndarray | None]:
+                - Direction: The selected movement direction. If no action
+                  is chosen during this tick, return None.
+                - np.ndarray: The camera image with annotated landmarks.
+        """
         ret, frame = self.cap.read()
         if not ret:
             return None, None
@@ -96,7 +134,17 @@ class ExpressionTracker(BaseControl):
                 return b.score
         return 0.0
     
-    def paint_landmarks(self, frame, landmarks):
+    def paint_landmarks(self, frame: np.ndarray, landmarks) -> np.ndarray:
+        """Paints landmarks in a frame if those are requested.
+
+        Args:
+            frame (np.ndarray): Frame where to paint the landmarks
+            landmarks (result.face_landmarks): landmarks from the mediapipe detector
+
+        Returns:
+            np.ndarray: New frame with the landmarks drawn.
+        """
+        
         h, w, _ = frame.shape
         coords = self.get_landmark_coords(landmarks, w, h)
         if self.draw_lands:
@@ -141,12 +189,27 @@ class ExpressionTracker(BaseControl):
         return frame
 
     def get_landmark_coords(self, landmarks: list[NormalizedLandmark], width: int, height: int) -> np.ndarray:
-        """Extract normalized landmark coordinates to array of pixel coordinates."""
+        """Extract normalized landmark coordinates to array of pixel coordinates.
+
+        Args:
+            landmarks (list[NormalizedLandmark]): Landmarks from the mediapipe detector.
+            width (int): Width in pixels of the frame
+            height (int): Height in pixels of the frame
+
+        Returns:
+            np.ndarray: Numpy array with the scaled coordinates of the landmarks.
+        """
         xyz = [(lm.x, lm.y, lm.z) for lm in landmarks]
         return np.multiply(xyz, [width, height, width]).astype(int)
 
     # -------------------------------------------------
-    def get_config_schema(self):
+    def get_config_schema(self) -> dict:
+        """Configurable options for the controller. 
+        Also lists all the different types of gestures.
+
+        Returns:
+            dict: Configuration dictionary.
+        """
         available_gestures = [
             "browDownLeft",     "browDownRight",        "browInnerUp",      "browOuterUpLeft",
             "browOuterUpRight", "cheekPuff",            "cheekSquintLeft",  "cheekSquintRight",
@@ -230,26 +293,25 @@ class ExpressionTracker(BaseControl):
                 "name": "Draw face landmarks",
                 "description": "Check to show the landmarks in the face",
                 "default": True,
-                "min": 0,
-                "max": 1,
             },
             "complete_lands": {
                 "name": "Draw complete landmarks",
                 "description": "Check for more points in the face, uncheck for faster drawing",
                 "default": False,
-                "min": 0,
-                "max": 1,
             },
             "highlight_lands": {
                 "name": "Highlight eyes and nose",
                 "description": "Check to highlight eyes and nose",
                 "default": True,
-                "min": 0,
-                "max": 1,
             },
         }
 
     def get_instructions(self) -> str:
+        """Instructions for the controller.
+        
+        Returns:
+            str: Text containing the HTML code to use for the instructions window.
+        """
         return f"""
         <html>
             {INSTRUCTIONS_HEAD}

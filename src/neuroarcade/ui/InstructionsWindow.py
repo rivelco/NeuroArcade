@@ -9,6 +9,12 @@ from importlib.resources import files
 
 class InstructionsWindow(QDialog):
     def __init__(self, html_text: str, parent=None):
+        """Creates a new window displaying the instructions passed as HTML formatted text.
+
+        Args:
+            html_text (str): Text containing HTML code to render in the instructions window.
+            parent (QWidget, optional): Parent of this window, typically the main window. Defaults to None.
+        """
         super().__init__(parent)
 
         self.setWindowTitle("Instructions")

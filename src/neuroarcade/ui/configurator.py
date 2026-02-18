@@ -7,12 +7,28 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 
 
-def clear_layout(layout):
+def clear_layout(layout: QFormLayout):
+    """Clears the elements in the passed layout.
+
+    Args:
+        layout (QFormLayout): Form layout to clear.
+    """
     while layout.rowCount():
         layout.removeRow(0)
 
 
-def widget_from_default(param_name, spec):
+def widget_from_default(param_name: str, spec: dict) -> tuple[QLabel, QWidget]:
+    """Creates a label and a widget for a specific parameter.
+    The parameter data is obtained from the `spec` variable.
+    A widget is created according to the type of the default value of the parameter.
+
+    Args:
+        param_name (str): Name of the parameter to show in the UI
+        spec (dict): Dictionary with the data of the parameter.
+
+    Returns:
+        tuple[QLabel, QWidget]: Label widget and input widget for the parameter.
+    """
     default = spec.get("default")
     tooltip = spec.get("description", "")
 
@@ -62,9 +78,14 @@ def widget_from_default(param_name, spec):
 
 
 def update_box_options(schema: dict, box_widget: QWidget, set_function=None):
-    """
-    Dynamically populate a Qt box with config options from schema
+    """Dynamically populate a Qt box with config options from schema
     using a QFormLayout.
+
+    Args:
+        schema (dict): Config schema for the parameters in the box.
+        box_widget (QWidget): Box that will contain the parameters.
+        set_function (Callable, optional): Function to call when pressing
+            the `Set options` button. Defaults to None.
     """
 
     layout = box_widget.layout()
@@ -102,7 +123,15 @@ def update_box_options(schema: dict, box_widget: QWidget, set_function=None):
         set_button_widget.clicked.connect(set_function)
         layout.addRow(set_button_widget)
 
-def read_config(box_widget):
+def read_config(box_widget: QWidget) -> dict:
+    """Reads the values of the parameters in a parameters box.
+
+    Args:
+        box_widget (QWidget): Widget containing the parameters widgets.
+
+    Returns:
+        dict: Dictionary mapping the name of the parameter and its value.
+    """
     values = {}
     for key, w in box_widget._config_widgets.items():
         if hasattr(w, "value"):

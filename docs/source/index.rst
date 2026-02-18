@@ -1,14 +1,29 @@
 NeuroArcade Documentation
-=========================
+==========================
 
-A motor-learning / neuroplasticity experimentation platform disguised as an arcade.
+.. important::
+   
+   A motor-learning / neuroplasticity experimentation platform disguised as an arcade.
 
-Contents
---------
+NeuroArcade is a modular game framework supporting
+controllers, transforms, and dynamically discoverable games.
+
+.. toctree::
+   :caption: The basics
+   
+   installation
+   quickstart
+   Architecture
 
 .. toctree::
    :maxdepth: 2
-   :caption: Documentation
+   :caption: API Reference
 
-   installation
-
+   api/main
+   api/core
+   api/controls
+   api/games
+   api/transforms
+   api/ui
+   api/utils
+   api/visualizers

@@ -4,7 +4,7 @@ Installation
 System requirements
 -------------------
 
-Computer and a WebCam for now.
+Computer and a WebCam (for some controllers) for now.
 
 Installation of the python environment
 --------------------------------------

@@ -88,7 +88,7 @@ class ExpressionTracker(BaseControl):
         if not ret:
             return None, None
 
-        frame = cv2.flip(frame, 1)
+        #frame = cv2.flip(frame, 1)
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         mp_image = mp.Image(
@@ -114,8 +114,19 @@ class ExpressionTracker(BaseControl):
 
             gest_up = self._get_blend(blends, self.gest_up)
             gest_down = self._get_blend(blends, self.gest_down)
-            gest_right = self._get_blend(blends, self.gest_left)
-            gest_left = self._get_blend(blends, self.gest_right)
+            gest_right = self._get_blend(blends, self.gest_right)
+            gest_left = self._get_blend(blends, self.gest_left)
+            
+            candidates = {
+                Direction.UP: gest_up,
+                Direction.DOWN: gest_down,
+                Direction.LEFT: gest_left,
+                Direction.RIGHT: gest_right,
+            }
+
+            selected_direction, probability = max(candidates.items(), key=lambda x: x[1])
+
+            #direction = selected_direction if probability > 0.5 else None
             
             if gest_down > self.prob_down:
                 direction = Direction.DOWN
@@ -125,6 +136,8 @@ class ExpressionTracker(BaseControl):
                 direction = Direction.RIGHT
             elif gest_up > self.prob_up:
                 direction = Direction.UP
+                    
+        frame = cv2.flip(frame, 1)
         
         return direction, frame
 
@@ -133,7 +146,7 @@ class ExpressionTracker(BaseControl):
             if b.category_name == name:
                 return b.score
         return 0.0
-    
+
     def paint_landmarks(self, frame: np.ndarray, landmarks) -> np.ndarray:
         """Paints landmarks in a frame if those are requested.
 
@@ -276,7 +289,7 @@ class ExpressionTracker(BaseControl):
                 "max": 1.0,
             },
             "prob_right": {
-                "name": "Threshold for right smile",
+                "name": "Threshold for right",
                 "description": "The probability threshold for identifying right expression",
                 "default": 0.4,
                 "min": 0.000001,

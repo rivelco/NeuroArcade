@@ -59,6 +59,9 @@ all = [
     "sphinxcontrib-napoleon",
     "sphinx-autodoc-typehints"
 ]
+prod = [
+    "pyinstaller"
+]
 
 [project.scripts]
 neuroarcade = "neuroarcade.main:main"

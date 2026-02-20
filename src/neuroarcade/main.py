@@ -75,8 +75,8 @@ class MainWindow(QMainWindow):
         # ---- Styling ----
         ui_path = str(files("neuroarcade.ui").joinpath("MainWindow.ui"))
         loadUi(ui_path, self)
-        encore_version = str(importlib.metadata.version("neuroarcade"))
-        self.setWindowTitle(f'NeuroArcade v{encore_version}')
+        arcade_version = str(importlib.metadata.version("neuroarcade"))
+        self.setWindowTitle(f'NeuroArcade v{arcade_version}')
         icon = str(files("neuroarcade.ui.icons").joinpath("NeuroArcade.ico"))
         self.setWindowIcon(QIcon(icon))
         self.switch_dark_mode()

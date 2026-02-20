@@ -4,6 +4,7 @@ import time
 import argparse
 import importlib.metadata
 from importlib.resources import files
+import importlib.metadata
 import qdarktheme
 import cv2
 import numpy as np
@@ -74,7 +75,8 @@ class MainWindow(QMainWindow):
         # ---- Styling ----
         ui_path = str(files("neuroarcade.ui").joinpath("MainWindow.ui"))
         loadUi(ui_path, self)
-        self.setWindowTitle('NeuroArcade')
+        encore_version = str(importlib.metadata.version("neuroarcade"))
+        self.setWindowTitle(f'NeuroArcade v{encore_version}')
         icon = str(files("neuroarcade.ui.icons").joinpath("NeuroArcade.ico"))
         self.setWindowIcon(QIcon(icon))
         self.switch_dark_mode()

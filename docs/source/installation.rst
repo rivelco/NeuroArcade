@@ -60,3 +60,25 @@ It's also possible to launch the GUI by using:
 .. code-block:: console
 
     python -m neuroarcade
+
+Pack the arcade to an .exe file
+-------------------------------
+
+Create an environment for this:
+
+.. code-block:: console
+
+    conda create -n neuroarcade_prod python=3.10
+    conda activate neuroarcade_prod
+
+Install the `prod` version of the package:
+
+.. code-block:: console
+
+    pip install -e .[prod]
+
+Pack the game using:
+
+.. code-block:: console
+
+    pyinstaller --onefile --windowed --name NeuroArcade --icon="src/NeuroArcade/ui/icons/NeuroArcade.ico" --paths src --collect-all mediapipe --collect-all neuroarcade --add-data "src/neuroarcade/ui;neuroarcade/ui" --add-data "src/neuroarcade/assets;neuroarcade/assets" --add-data "src/neuroarcade/sounds;neuroarcade/sounds" src/neuroarcade/main.py

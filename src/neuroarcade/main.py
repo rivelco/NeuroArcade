@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
         ui_path = str(files("neuroarcade.ui").joinpath("MainWindow.ui"))
         loadUi(ui_path, self)
         self.setWindowTitle('NeuroArcade')
-        icon = str(files("neuroarcade.ui.icons").joinpath("ArcadeIcon.svg"))
+        icon = str(files("neuroarcade.ui.icons").joinpath("NeuroArcade.ico"))
         self.setWindowIcon(QIcon(icon))
         self.switch_dark_mode()
         

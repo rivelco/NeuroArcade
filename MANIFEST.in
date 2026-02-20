@@ -3,4 +3,5 @@ recursive-include src/neuroarcade/ui *.ui
 recursive-include src/neuroarcade/assets *.task
 recursive-include src/neuroarcade/assets *.tflite
 recursive-include src/neuroarcade/ui/icons *.svg
+recursive-include src/neuroarcade/ui/icons *.ico
 recursive-include src/neuroarcade/sounds *.wav

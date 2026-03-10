@@ -30,7 +30,7 @@ NeuroArcade is very modular, so every component is agnostic about the rest, and 
 
 In short, any controller, transformer and game has a base, i.e. some functions that every component should have. Each element is a class and goes inside a file with the same name of that class. It is highly recommended to check the elements that NeuroArcade already have to better get the idea. Also, the code is documented and includes useful examples to facilitate the understanding of the software.
 
-Check out the NeuroArcade's (architecture)[ARCHITECTURE.md] and the (contribution guide)[CONTRIBUTING.md] to have a better understanding of how NeuroArcade works.
+Check out the NeuroArcade's [architecture](ARCHITECTURE.md) and the [contribution guide](CONTRIBUTING.md) to have a better understanding of how NeuroArcade works.
 
 ## Contributions from students and first time contributors
 

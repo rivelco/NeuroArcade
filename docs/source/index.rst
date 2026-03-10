@@ -13,7 +13,6 @@ controllers, transforms, and dynamically discoverable games.
    
    installation
    quickstart
-   Architecture
 
 .. toctree::
    :maxdepth: 2
@@ -27,3 +26,9 @@ controllers, transforms, and dynamically discoverable games.
    api/ui
    api/utils
    api/visualizers
+
+.. toctree::
+   :caption: Expanding the arcade
+   
+   Architecture
+   Contributing

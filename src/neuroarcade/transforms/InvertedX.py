@@ -4,7 +4,7 @@ from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 class InvertedX(BaseTransform):
     """
-    Default transform: no remapping.
+    Classic inverted X transformation.
     """
 
     def apply(self, direction: Direction) -> Direction:

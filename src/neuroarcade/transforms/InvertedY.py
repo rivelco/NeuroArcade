@@ -4,7 +4,7 @@ from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 class InvertedY(BaseTransform):
     """
-    Default transform: no remapping.
+    Invert the Y axis.
     """
 
     def apply(self, direction: Direction) -> Direction:

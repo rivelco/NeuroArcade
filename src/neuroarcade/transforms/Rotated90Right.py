@@ -4,7 +4,7 @@ from neuroarcade.ui.instructions_html import INSTRUCTIONS_HEAD
 
 class Rotated90Right(BaseTransform):
     """
-    Default transform: no remapping.
+    Rotates the direction 90 degrees to the right.
     """
 
     def apply(self, direction: Direction) -> Direction:

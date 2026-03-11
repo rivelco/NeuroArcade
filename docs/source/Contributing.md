@@ -323,7 +323,7 @@ Please try to follow these general guidelines:
 
 ## User interface
 
-The user interface uses (PyQt6 for python)[https://doc.qt.io/qtforpython-6/]. It is advisable to make modifications to the `src/neuroarcade/ui/MainWindow.ui` using the PyQt6 Designer app. Launch the designer with:
+The user interface uses [PyQt6 for python](https://doc.qt.io/qtforpython-6/). It is advisable to make modifications to the `src/neuroarcade/ui/MainWindow.ui` using the PyQt6 Designer app. Launch the designer with:
 
 ```bash
 pyqt6-tools designer

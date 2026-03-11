@@ -255,7 +255,7 @@ Games can trigger sound effects through the sound manager.
 
 ## User interface
 
-The user interface uses (PyQt6 for python)[https://doc.qt.io/qtforpython-6/] and its components are located in:
+The user interface uses [PyQt6 for python](https://doc.qt.io/qtforpython-6/) and its components are located in:
 
 ```
 src/ui/

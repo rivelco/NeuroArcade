@@ -159,11 +159,11 @@ The `update` function should return `(Direction | None, visualization_frame | No
 
 Controllers can use any input modality, for example:
 
-* webcam tracking
-* motion sensors
+* Webcam tracking
+* Motion sensors
 * EMG
 * EEG
-* external hardware
+* External hardware
 * etc, get creative!
 
 ---
@@ -174,9 +174,9 @@ Transforms modify the direction produced by a controller before it reaches the g
 
 Examples include:
 
-* axis inversion
-* nonlinear mappings
-* experimental perturbations
+* Axis inversion
+* Nonlinear mappings
+* Experimental perturbations
 
 1. Create a file in:
 
@@ -362,9 +362,9 @@ Note that you can install NeuroArcade using the optional dependencies where:
 
 When possible, include:
 
-* a short description of the feature
-* example usage
-* screenshots for games or controllers
+* A short description of the feature
+* Example usage
+* Screenshots for games or controllers
 
 ---
 

@@ -1,10 +1,68 @@
 # NeuroArcade
 
-> A motor-learning / neuroplasticity experimentation platform disguised as an arcade.
+<br />
+<div align="center">
+  <a href="https://github.com/rivelco/NeuroArcade">
+    <img src="https://raw.githubusercontent.com/rivelco/NeuroArcade/main/src/NeuroArcade/ui/icons/NeuroArcade.png" alt="NeuroAcade Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">NeuroArcade</h3>
+
+  <p align="center">
+    A motor-learning / neuroplasticity experimentation platform disguised as an arcade.
+    <br />
+    <a href="https://rivelco.github.io/NeuroArcade/"><strong>Read the documentation</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/rivelco/NeuroArcade/issues/new?labels=bug&template=bug-report---.md">Report a bug</a>
+    &middot;
+    <a href="https://github.com/rivelco/NeuroArcade/issues/new?labels=enhancement&template=feature-request---.md">Request a feature</a>
+    &middot;
+    <a href="CONTRIBUTING.md">Contribute to NeuroArcade</a>
+  </p>
+</div>
 
 NeuroArcade is a simple, lightweight but very flexible and powerful platform for neuroplasticity experimentation and motor-learning.
 
-## The main idea
+## Installation
+
+The quick platform-independent installation method requires [Python](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/installation/). Simply open your terminal and install the arcade with:
+
+```bash
+pip install neuroarcade
+```
+
+Then run the arcade with:
+
+```bash
+neuroarcade
+```
+
+> [!NOTE]
+> The use of a specific python environment is highly recommended.
+
+### Use the available Windows-compatible binaries
+
+For a quicker way to try NeuroArcade and if you're using Windows, download and run the available binary in the [releases section](https://github.com/rivelco/NeuroArcade/releases).
+
+> [!TIP]
+> Look for the `.exe` file in the Assets section of the release of interest.
+
+> [!IMPORTANT]
+> Additional information and instructions for installation are available at the [documentation site](https://rivelco.github.io/NeuroArcade/).
+
+## About the NeuroArcade
+
+NeuroArcade is an open-source platform that transforms principles from neuroscience and motor learning research into interactive arcade-style activities. By separating input sensing, signal transformation, and gameplay into modular components, the platform allows researchers, educators, and students to rapidly prototype experiments exploring sensorimotor control, adaptation, and neuroplasticity.
+
+Because the system can integrate diverse input modalities, from computer vision and gesture recognition to external sensors, it provides a flexible environment for demonstrating how the brain learns to control actions under different constraints or perturbations. 
+
+This makes NeuroArcade particularly valuable not only for exploratory research and rapid experimental prototyping, but also for **scientific outreach and education** because complex concepts such as neural adaptation, motor learning, and brain–machine interfaces can be experienced directly through a playful interaction.
+
+As an open-source and extensible platform, NeuroArcade also serves as a collaborative tool where developers, students, and scientists can design new games, controllers, and transformations, turning the platform into both a research sandbox and a **public-facing demonstration of how neuroscience and technology intersect**.
+
+> [!NOTE]
+> This platform was originally inspired by public science outreach efforts at the [Instituto de Neurobiología UNAM](https://inb.unam.mx/). It later evolved into a broader tool for research, education, and interactive demonstrations of neuroscience and motor learning.
 
 The user plays games, using a variety of control options, like the keyboard or computer vision based methods to control a game. The twist here is that this input may change in time, changing the actual effective output.
 
@@ -30,11 +88,13 @@ NeuroArcade is very modular, so every component is agnostic about the rest, and 
 
 In short, any controller, transformer and game has a base, i.e. some functions that every component should have. Each element is a class and goes inside a file with the same name of that class. It is highly recommended to check the elements that NeuroArcade already have to better get the idea. Also, the code is documented and includes useful examples to facilitate the understanding of the software.
 
-Check out the NeuroArcade's [architecture](ARCHITECTURE.md) and the [contribution guide](CONTRIBUTING.md) to have a better understanding of how NeuroArcade works.
+> [!TIP]
+> Check out the NeuroArcade's [architecture](ARCHITECTURE.md) and the [contribution guide](CONTRIBUTING.md) to have a better understanding of how NeuroArcade works.
 
 ## Contributions from students and first time contributors
 
-NeuroArcade strongly encourages contributions from students and first time open source contributors.
+> [!IMPORTANT]
+> NeuroArcade strongly encourages contributions from students and first time open source contributors.
 
 Beyond being a research and experimentation platform for motor learning and neuroplasticity, NeuroArcade is also intended to serve as a **learning environment for new developers** who wants to practice important skills such as reading documentation, understanding an existing software architecture, following project conventions, and collaborating with an open source community.
 

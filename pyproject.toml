@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "neuroarcade"
 version = "1.0.0"
-description = "Arcade games to promote neuro-plasticity"
+description = "A motor-learning / neuroplasticity experimentation platform disguised as an arcade."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "GPL-3.0-only"
@@ -27,9 +27,6 @@ dependencies = [
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
-    "Topic :: Scientific/Engineering :: Bio-Informatics",
-    "Topic :: Scientific/Engineering :: Medical Science Apps.",
-    "Topic :: Scientific/Engineering :: Information Analysis",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
@@ -69,9 +66,9 @@ prod = [
 neuroarcade = "neuroarcade.main:main"
 
 [project.urls]
-Homepage = "https://github.com/rivelco/neuroarcade"
-Documentation = "https://rivelco.github.io/neuroarcade/"
-Issues = "https://github.com/rivelco/neuroarcade/issues"
+Homepage = "https://github.com/rivelco/NeuroArcade"
+Documentation = "https://rivelco.github.io/NeuroArcade/"
+Issues = "https://github.com/rivelco/NeuroArcade/issues"
 
 [tool.setuptools]
 include-package-data = true

@@ -1,3 +1,6 @@
 __pycache__/
 neuroarcade.egg-info/
 /dist
+docs/build/
+/build
+/NeuroArcade.spec

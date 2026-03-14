@@ -25,6 +25,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx_copybutton',
+    'sphinx.ext.napoleon',
+    'myst_parser',
 ]
 
 # Mock MATLAB during doc build
@@ -33,13 +35,13 @@ autodoc_mock_imports = ["qdarktheme"]
 templates_path = ['_templates']
 exclude_patterns = []
 
-html_static_path = ['_static']
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
 html_static_path = ['_static']
+
+html_logo = "_static/NeuroArcade_logo.png"
 
 html_theme_options = {
     "footer_icons": [
@@ -54,4 +56,7 @@ html_theme_options = {
             "class": "",
         },
     ],
+    "source_repository": "https://github.com/rivelco/NeuroArcade/",
+    "source_branch": "main",
+    "source_directory": "docs/source/",
 }

@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/rivelco/NeuroArcade">
-    <img src="https://raw.githubusercontent.com/rivelco/NeuroArcade/main/src/NeuroArcade/ui/icons/NeuroArcade.png" alt="NeuroAcade Logo" width="80" height="80">
+    <img src="docs/source/_static/NeuroArcade_logo.png" alt="NeuroAcade Logo" width="80" height="80">
   </a>
 
   <h3 align="center">NeuroArcade</h3>
@@ -14,15 +14,17 @@
     <a href="https://rivelco.github.io/NeuroArcade/"><strong>Read the documentation</strong></a>
     <br />
     <br />
-    <a href="https://github.com/rivelco/NeuroArcade/issues/new?labels=bug&template=bug-report---.md">Report a bug</a>
+    <a href="https://github.com/rivelco/NeuroArcade/issues/new?template=bug_report.md">Report a bug</a>
     &middot;
-    <a href="https://github.com/rivelco/NeuroArcade/issues/new?labels=enhancement&template=feature-request---.md">Request a feature</a>
+    <a href="https://github.com/rivelco/NeuroArcade/issues/new?template=feature_request.md">Request a feature</a>
     &middot;
     <a href="CONTRIBUTING.md">Contribute to NeuroArcade</a>
   </p>
 </div>
 
 NeuroArcade is a simple, lightweight but very flexible and powerful platform for neuroplasticity experimentation and motor-learning.
+
+<img src="docs/source/_static/DemoNeuroArcade.gif" alt="NeuroAcade Demo">
 
 ## Installation
 

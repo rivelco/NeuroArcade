@@ -2,6 +2,7 @@ furo==2024.8.6
 sphinx-copybutton==0.5.2
 sphinxcontrib-napoleon
 sphinx-autodoc-typehints
+myst_parser
 
 opencv-python
 numpy

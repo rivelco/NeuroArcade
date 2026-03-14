@@ -11,6 +11,20 @@ Installation of the python environment
 
 The recommended installation method relies on `Conda <https://docs.conda.io/projects/conda/en/latest/index.html>`_ to manage your Python environments. I highly recommend using Conda for this purpose.
 
+Download the repository
+~~~~~~~~~~~~~~~~~~~~~~~
+
+There are different ways to download the repository:
+
+A. Using your web browser, go to the `GitHub page of the project <https://github.com/rivelco/NeuroArcade>`_ `Code` button and select "Download ZIP". Save the file to your computer and then uncompress the file.
+B. If you have git installed, open your terminal and run:
+
+.. code-block:: console
+
+    git clone https://github.com/rivelco/NeuroArcade.git
+
+After this, use the terminal to navigate to the main directory of NeuroArcade.
+
 Installation using pip
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -27,7 +41,7 @@ To install neuroarcade simply run:
 
 .. code-block:: console
 
-    pip install neuroarcade
+    pip install .
 
 
 Verifying the installation

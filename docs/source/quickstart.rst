@@ -1,13 +1,20 @@
 Quickstart
 ==========
 
-1. Install in a python environment:
+1. Download the repository
+2. Open your terminal and navigate to the folder of the repository, for example:
 
 .. code-block:: bash
 
-   pip install neuroarcade
+   cd path/to/the/repo/NeuroArcade/
 
-2. Launch GUI:
+3. Install in a python environment:
+
+.. code-block:: bash
+
+   pip install .
+
+4. Launch GUI:
 
 .. code-block:: bash
 
@@ -19,8 +26,8 @@ Alternative launch:
 
    python -m neuroarcade
 
-3. Select a game, a controller and  transformer.
+5. Select a game, a controller and  transformer.
 
    Use the question marks buttons next to the game, controller or transformer to read the specific game instructions.
 
-4. Press the space bar or the `Start` button at the bottom to start the game.
+6. Press the space bar or the `Start` button at the bottom to start the game.

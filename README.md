@@ -28,13 +28,22 @@ NeuroArcade is a simple, lightweight but very flexible and powerful platform for
 
 ## Installation
 
-The quick platform-independent installation method requires [Python](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/installation/). Simply open your terminal and install the arcade with:
+The quick platform-independent installation method requires [Python](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/installation/).
+
+1. Download the repository
+2. Open your terminal and navigate to the folder of the repository, for example:
 
 ```bash
-pip install neuroarcade
+cd path/to/the/repo/NeuroArcade/
 ```
 
-Then run the arcade with:
+3. Install the platform with:
+
+```bash
+pip install .
+```
+
+4. Then run the arcade with:
 
 ```bash
 neuroarcade

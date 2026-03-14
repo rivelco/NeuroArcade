@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="NeuroArcade Documentation" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Quickstart" href="quickstart.html" /><link rel="prev" title="NeuroArcade Documentation" href="index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Installation - neuroarcade 1.0.0 documentation</title>
@@ -190,6 +190,9 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/NeuroArcade_logo.png" alt="Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">neuroarcade 1.0.0 documentation</span>
   
@@ -199,9 +202,26 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+  <p class="caption" role="heading"><span class="caption-text">The basics</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/main.html">Main Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/core.html">Core Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/controls.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/games.html">Games Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/transforms.html">Transforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ui.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/visualizers.html">Visualizers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expanding the arcade</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a></li>
 </ul>
 
 </div>
@@ -222,12 +242,16 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/installation.rst.txt" title="View this page">
+  <a class="muted-link" href="https://github.com/rivelco/NeuroArcade/blob/main/docs/source/installation.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
-</div>
-<div class="theme-toggle-container theme-toggle-content">
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/rivelco/NeuroArcade/edit/main/docs/source/installation.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
@@ -246,11 +270,23 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
 <section id="system-requirements">
 <h2>System requirements<a class="headerlink" href="#system-requirements" title="Link to this heading">¶</a></h2>
-<p>Computer and a WebCam for now.</p>
+<p>Computer and a WebCam (for some controllers) for now.</p>
 </section>
 <section id="installation-of-the-python-environment">
 <h2>Installation of the python environment<a class="headerlink" href="#installation-of-the-python-environment" title="Link to this heading">¶</a></h2>
 <p>The recommended installation method relies on <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/index.html">Conda</a> to manage your Python environments. I highly recommend using Conda for this purpose.</p>
+<section id="download-the-repository">
+<h3>Download the repository<a class="headerlink" href="#download-the-repository" title="Link to this heading">¶</a></h3>
+<p>There are different ways to download the repository:</p>
+<ol class="upperalpha simple">
+<li><p>Using your web browser, go to the <a class="reference external" href="https://github.com/rivelco/NeuroArcade">GitHub page of the project</a> <cite>Code</cite> button and select “Download ZIP”. Save the file to your computer and then uncompress the file.</p></li>
+<li><p>If you have git installed, open your terminal and run:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/rivelco/NeuroArcade.git</span>
+</pre></div>
+</div>
+<p>After this, use the terminal to navigate to the main directory of NeuroArcade.</p>
+</section>
 <section id="installation-using-pip">
 <h3>Installation using pip<a class="headerlink" href="#installation-using-pip" title="Link to this heading">¶</a></h3>
 <p>You can install NeuroArcade using pip. It’s still recommended that you do this using conda or some other environment manager. If you’re using conda type:</p>
@@ -260,7 +296,7 @@
 </div>
 <p>The above command will create a new environment called <cite>neuroarcade</cite> and with python 3.10 installed. You can choose the name of the environment replacing <cite>neuroarcade</cite> with the name you prefer. After the environment is created it must be activated.</p>
 <p>To install neuroarcade simply run:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install neuroarcade</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install .</span>
 </pre></div>
 </div>
 </section>
@@ -287,6 +323,22 @@
 </pre></div>
 </div>
 </section>
+<section id="pack-the-arcade-to-an-exe-file">
+<h2>Pack the arcade to an .exe file<a class="headerlink" href="#pack-the-arcade-to-an-exe-file" title="Link to this heading">¶</a></h2>
+<p>Create an environment for this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda create -n neuroarcade_prod python=3.10</span>
+<span class="go">conda activate neuroarcade_prod</span>
+</pre></div>
+</div>
+<p>Install the <cite>prod</cite> version of the package:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install -e .[prod]</span>
+</pre></div>
+</div>
+<p>Pack the game using:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pyinstaller --onefile --windowed --name NeuroArcade --icon=&quot;src/NeuroArcade/ui/icons/NeuroArcade.ico&quot; --paths src --collect-all mediapipe --collect-all neuroarcade --add-data &quot;src/neuroarcade/ui;neuroarcade/ui&quot; --add-data &quot;src/neuroarcade/assets;neuroarcade/assets&quot; --add-data &quot;src/neuroarcade/sounds;neuroarcade/sounds&quot; src/neuroarcade/main.py</span>
+</pre></div>
+</div>
+</section>
 </section>
 
         </article>
@@ -294,7 +346,15 @@
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="quickstart.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Quickstart</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -346,11 +406,13 @@
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#system-requirements">System requirements</a></li>
 <li><a class="reference internal" href="#installation-of-the-python-environment">Installation of the python environment</a><ul>
+<li><a class="reference internal" href="#download-the-repository">Download the repository</a></li>
 <li><a class="reference internal" href="#installation-using-pip">Installation using pip</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#verifying-the-installation">Verifying the installation</a></li>
 <li><a class="reference internal" href="#run-the-arcade">Run the arcade</a></li>
+<li><a class="reference internal" href="#pack-the-arcade-to-an-exe-file">Pack the arcade to an .exe file</a></li>
 </ul>
 </li>
 </ul>

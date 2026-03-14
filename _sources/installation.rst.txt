@@ -4,12 +4,26 @@ Installation
 System requirements
 -------------------
 
-Computer and a WebCam for now.
+Computer and a WebCam (for some controllers) for now.
 
 Installation of the python environment
 --------------------------------------
 
 The recommended installation method relies on `Conda <https://docs.conda.io/projects/conda/en/latest/index.html>`_ to manage your Python environments. I highly recommend using Conda for this purpose.
+
+Download the repository
+~~~~~~~~~~~~~~~~~~~~~~~
+
+There are different ways to download the repository:
+
+A. Using your web browser, go to the `GitHub page of the project <https://github.com/rivelco/NeuroArcade>`_ `Code` button and select "Download ZIP". Save the file to your computer and then uncompress the file.
+B. If you have git installed, open your terminal and run:
+
+.. code-block:: console
+
+    git clone https://github.com/rivelco/NeuroArcade.git
+
+After this, use the terminal to navigate to the main directory of NeuroArcade.
 
 Installation using pip
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +41,7 @@ To install neuroarcade simply run:
 
 .. code-block:: console
 
-    pip install neuroarcade
+    pip install .
 
 
 Verifying the installation
@@ -60,3 +74,25 @@ It's also possible to launch the GUI by using:
 .. code-block:: console
 
     python -m neuroarcade
+
+Pack the arcade to an .exe file
+-------------------------------
+
+Create an environment for this:
+
+.. code-block:: console
+
+    conda create -n neuroarcade_prod python=3.10
+    conda activate neuroarcade_prod
+
+Install the `prod` version of the package:
+
+.. code-block:: console
+
+    pip install -e .[prod]
+
+Pack the game using:
+
+.. code-block:: console
+
+    pyinstaller --onefile --windowed --name NeuroArcade --icon="src/NeuroArcade/ui/icons/NeuroArcade.ico" --paths src --collect-all mediapipe --collect-all neuroarcade --add-data "src/neuroarcade/ui;neuroarcade/ui" --add-data "src/neuroarcade/assets;neuroarcade/assets" --add-data "src/neuroarcade/sounds;neuroarcade/sounds" src/neuroarcade/main.py

@@ -190,6 +190,9 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/NeuroArcade_logo.png" alt="Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">neuroarcade 1.0.0 documentation</span>
   
@@ -199,9 +202,26 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+  <p class="caption" role="heading"><span class="caption-text">The basics</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/main.html">Main Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/core.html">Core Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/controls.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/games.html">Games Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/transforms.html">Transforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ui.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/visualizers.html">Visualizers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expanding the arcade</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a></li>
 </ul>
 
 </div>
@@ -222,12 +242,16 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/index.rst.txt" title="View this page">
+  <a class="muted-link" href="https://github.com/rivelco/NeuroArcade/blob/main/docs/source/index.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
-</div>
-<div class="theme-toggle-container theme-toggle-content">
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/rivelco/NeuroArcade/edit/main/docs/source/index.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
@@ -244,17 +268,123 @@
         <article role="main" id="furo-main-content">
           <section id="neuroarcade-documentation">
 <h1>NeuroArcade Documentation<a class="headerlink" href="#neuroarcade-documentation" title="Link to this heading">¶</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
 <p>A motor-learning / neuroplasticity experimentation platform disguised as an arcade.</p>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Link to this heading">¶</a></h2>
+</div>
+<p>NeuroArcade is a simple, lightweight but very flexible and powerful platform for neuroplasticity experimentation and motor-learning.</p>
+<section id="about-the-neuroarcade">
+<h2>About the NeuroArcade<a class="headerlink" href="#about-the-neuroarcade" title="Link to this heading">¶</a></h2>
+<p>NeuroArcade is an open-source platform that transforms principles from neuroscience and motor learning research into interactive arcade-style activities. By separating input sensing, signal transformation, and gameplay into modular components, the platform allows researchers, educators, and students to rapidly prototype experiments exploring sensorimotor control, adaptation, and neuroplasticity.</p>
+<p>Because the system can integrate diverse input modalities, from computer vision and gesture recognition to external sensors, it provides a flexible environment for demonstrating how the brain learns to control actions under different constraints or perturbations.</p>
+<p>This makes NeuroArcade particularly valuable not only for exploratory research and rapid experimental prototyping, but also for <strong>scientific outreach and education</strong> because complex concepts such as neural adaptation, motor learning, and brain–machine interfaces can be experienced directly through a playful interaction.</p>
+<p>As an open-source and extensible platform, NeuroArcade also serves as a collaborative tool where developers, students, and scientists can design new games, controllers, and transformations, turning the platform into both a research sandbox and a <strong>public-facing demonstration of how neuroscience and technology intersect</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This platform was originally inspired by public science outreach efforts at the <a class="reference external" href="https://inb.unam.mx/">Instituto de Neurobiología UNAM</a>. It later evolved into a broader tool for research, education, and interactive demonstrations of neuroscience and motor learning.</p>
+</div>
+<p>The user plays games, using a variety of control options, like the keyboard or computer vision based methods to control a game. The twist here is that this input may change in time, changing the actual effective output.</p>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">The basics</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#system-requirements">System requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-of-the-python-environment">Installation of the python environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-of-the-python-environment">Installation of the python environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#download-the-repository">Download the repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#installation-using-pip">Installation using pip</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#verifying-the-installation">Verifying the installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#run-the-arcade">Run the arcade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pack-the-arcade-to-an-exe-file">Pack the arcade to an .exe file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/main.html">Main Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/core.html">Core Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#module-neuroarcade.core.direction">Direction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#sound-management">Sound Management</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/controls.html">Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/controls.html#module-neuroarcade.controls.base">Base Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/controls.html#available-controllers">Available controllers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/games.html">Games Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/games.html#base-game">Base Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/games.html#available-games">Available Games</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/transforms.html">Transforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/transforms.html#module-neuroarcade.transforms.base">Base Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/transforms.html#available-transforms">Available transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/ui.html">User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/ui.html#module-neuroarcade.ui.configurator">Configurator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/ui.html#module-neuroarcade.ui.InstructionsWindow">Instructions Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#module-neuroarcade.utils.loader">Dynamic Loader</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/visualizers.html">Visualizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/visualizers.html#module-neuroarcade.visualizers.controls">Controller Visualizers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Expanding the arcade</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#core-design-philosophy">Core design philosophy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#high-level-system-flow">High level system flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#direction-system">Direction system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#main-game-loop">Main game loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#module-categories">Module categories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Architecture.html#controllers">Controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Architecture.html#transforms">Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Architecture.html#games">Games</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#dynamic-module-discovery">Dynamic module discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#configuration-system">Configuration system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#visualization-system">Visualization system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#sound-system">Sound system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#user-interface">User interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#extending-the-system">Extending the system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Architecture.html#future-directions">Future Directions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#philosophy">Philosophy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#project-structure">Project Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#adding-new-components">Adding new components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Contributing.html#creating-a-new-game">Creating a new game</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Contributing.html#creating-a-new-controller">Creating a new controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Contributing.html#creating-a-new-transform">Creating a new transform</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#configuration-system">Configuration system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#sound-effects-and-music">Sound effects and music</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Contributing.html#adding-music">Adding music</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Contributing.html#adding-sound-effects-to-games">Adding sound effects to games</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#coding-guidelines">Coding Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#user-interface">User interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#submitting-contributions">Submitting contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#ideas-for-contributions">Ideas for contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Contributing.html#questions">Questions</a></li>
 </ul>
 </li>
 </ul>
@@ -315,7 +445,9 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">NeuroArcade Documentation</a><ul>
-<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#about-the-neuroarcade">About the NeuroArcade</a><ul>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

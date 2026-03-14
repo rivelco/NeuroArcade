@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Main Application" href="api/main.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Quickstart - neuroarcade 1.0.0 documentation</title>
@@ -190,6 +190,9 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/NeuroArcade_logo.png" alt="Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">neuroarcade 1.0.0 documentation</span>
   
@@ -199,9 +202,26 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
+  <p class="caption" role="heading"><span class="caption-text">The basics</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/main.html">Main Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/core.html">Core Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/controls.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/games.html">Games Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/transforms.html">Transforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ui.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/visualizers.html">Visualizers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Expanding the arcade</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Contributing.html">Contributing</a></li>
 </ul>
 
 </div>
@@ -222,12 +242,16 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/quickstart.rst.txt" title="View this page">
+  <a class="muted-link" href="https://github.com/rivelco/NeuroArcade/blob/main/docs/source/quickstart.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
-</div>
-<div class="theme-toggle-container theme-toggle-content">
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/rivelco/NeuroArcade/edit/main/docs/source/quickstart.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
@@ -244,11 +268,22 @@
         <article role="main" id="furo-main-content">
           <section id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">¶</a></h1>
-<p>Install:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>neuroarcade
+<ol class="arabic simple">
+<li><p>Download the repository</p></li>
+<li><p>Open your terminal and navigate to the folder of the repository, for example:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>path/to/the/repo/NeuroArcade/
 </pre></div>
 </div>
-<p>Launch GUI:</p>
+<ol class="arabic simple" start="3">
+<li><p>Install in a python environment:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Launch GUI:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>neuroarcade
 </pre></div>
 </div>
@@ -256,6 +291,12 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>neuroarcade
 </pre></div>
 </div>
+<ol class="arabic" start="5">
+<li><p>Select a game, a controller and  transformer.</p>
+<p>Use the question marks buttons next to the game, controller or transformer to read the specific game instructions.</p>
+</li>
+<li><p>Press the space bar or the <cite>Start</cite> button at the bottom to start the game.</p></li>
+</ol>
 </section>
 
         </article>
@@ -263,8 +304,26 @@
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="api/main.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Main Application</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="installation.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
